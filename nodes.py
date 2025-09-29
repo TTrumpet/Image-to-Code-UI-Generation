@@ -1,13 +1,14 @@
 import subprocess
 from openai import OpenAI
 
-from utils import call_vlm_api, call_codegen_api, call_vllm_comparison_api#
+from utils import call_vlm_api, call_codegen_api, call_vllm_comparison_api
+
 from constants import *
 
 # This file contains the functions that will be the nodes in our graph.
 # Each class has a `run` method that takes the current state and returns an updated state.
 
-# TODO: move all prompts to constants file
+# TODO: move all prompts to constants, move API url to constants
 
 class VlmBrain:
     def run(self, state):

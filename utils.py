@@ -5,9 +5,7 @@ import os
 from constants import *
 
 # This file contains mock functions for making API calls.
-# Replace these with your actual model inference logic.
-# For vLLM, you would set up an API server and call it via requests.
-# See vLLM docs: https://docs.vllm.ai/en/latest/getting_started/quickstart.html#openai-compatible-server
+# TODO: Replace these with your actual model inference logic.
 
 def image_to_base64_str(filepath):
     """Converts an image file to a base64 string."""
