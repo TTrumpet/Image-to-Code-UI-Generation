@@ -7,3 +7,6 @@ Web2Code*
 /extracted_images_eval
 /extracted_images_eval/*
 *.zip
+CVS_Proj_Agent/Images/*
+CVS_Proj_Agent/Outputs/*
+CVS_Proj_Agent/Outputs/.*

@@ -1,94 +1,90 @@
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ringly</title>
-<style>
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, system-ui;
-  color: #000000;
-  background-color: #ffffff;
-}
-
-#navbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-  border-bottom: 1px solid #000000;
-}
-
-#header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 350px;
-  background-image: url("Outputs/Assets/asset_fda40fdc-a071-43b8-983e-b699b253803b.png");
-  background-size: cover;
-}
-
-#section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2em;
-  line-height: 1.5;
-}
-
-#grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease-in-out;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-
-.card p {
-  margin-top: 10px;
-  font-weight: bold;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ringly Product Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+       .container {
+            width: 1200px;
+            max-width: 100%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        h1, h2, p {
+            text-align: center;
+            color: #333;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 24px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+       .product-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+       .product-item {
+            width: calc(33.33% - 20px);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+       .product-item img {
+            margin-bottom: 10px;
+        }
+       .product-item h2 {
+            margin-top: 0;
+        }
+       .product-item p {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-<div id="navbar">RINGLY</div>
-<div id="header"></div>
-<div id="section">Smart jewelry that keeps you active, mindful, and in the moment.</div>
-<div id="grid">
-  <div class="card">
-    <img src="Outputs/Assets/asset_fda40fdc-a071-43b8-983e-b699b253803b.png" alt="Header Image">
-    <p>RINGLY GO SMART BRACELETS $125.00</p>
-  </div>
-  <div class="card">
-    <img src="Outputs/Assets/asset_c562d476-9fd6-40bd-8ba8-1c2c18307b9f.png" alt="Grid Background Image">
-    <p>RINGLY LUXE SMART BRACELETS $165.00</p>
-  </div>
-  <div class="card">
-    <img src="Outputs/Assets/asset_c562d476-9fd6-40bd-8ba8-1c2c18307b9f.png" alt="Grid Background Image">
-    <p>RINGLY LUXE SMART RINGS $165.00</p>
-  </div>
-</div>
+    <div class="container">
+        <img src="Outputs/Assets\\asset_2dc4f5cb-38b6-41cf-af08-94cde3a022bd.png" alt="Woman holding a fan with text 'JEWELRY, MEET TECHNOLOGY.'">
+        <h1>JEWELRY, MEET TECHNOLOGY.</h1>
+        <p>ACTIVITY TRACKING, MOBILE ALERTS & GUIDED MEDITATION</p>
+        <div class="product-section">
+            <div class="product-item">
+                <img src="Outputs/Assets\\asset_8d3b88b9-5370-41b8-80aa-4e466e92e00c.png" alt="RINGLY GO SMART BRACELETS">
+                <h2>RINGLY GO SMART BRACELETS</h2>
+                <p>$125.00</p>
+            </div>
+            <div class="product-item">
+                <img src="Outputs/Assets\\asset_0c27d3ea-f568-4494-9d2f-57ce8adbfd62.png" alt="RINGLY LUXE SMART BRACELETS">
+                <h2>RINGLY LUXE SMART BRACELETS</h2>
+                <p>$165.00</p>
+            </div>
+            <div class="product-item">
+                <img src="Outputs/Assets\\asset_98ec725d-9df4-4765-bb0c-42e07d3f9a4a.png" alt="RINGLY LUXE SMART RINGS">
+                <h2>RINGLY LUXE SMART RINGS</h2>
+                <p>$165.00</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
