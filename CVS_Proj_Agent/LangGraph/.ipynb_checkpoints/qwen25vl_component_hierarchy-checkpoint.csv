@@ -1,4 +1,0 @@
-image,raw_output,status
-1.png,ERROR: Could not make a flat list of images from ['Images/1.png'],error
-2.png,ERROR: Could not make a flat list of images from ['Images/2.png'],error
-3.png,ERROR: Could not make a flat list of images from ['Images/3.png'],error
