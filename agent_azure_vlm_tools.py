@@ -43,7 +43,7 @@ load_dotenv()
 
 # --- Configs from all files ---
 QWEN_VL_MODEL_NAME = os.getenv("QWEN_VL_MODEL", "Qwen/Qwen2.5-VL-7B-Instruct")
-SD_GENERATOR_MODEL = os.getenv("SD_GENERATOR_MODEL", "segmind/tiny-sd")
+SD_GENERATOR_MODEL = os.getenv("SD_GENERATOR_MODEL", "segmind/Segmind-Vega")
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 DTYPE = torch.bfloat16 if torch.cuda.is_available() else torch.float32
 
@@ -140,7 +140,7 @@ class ModelManager:
     # --- Generator (from asset_tool) ---
     def generate_image(self, prompt: str) -> Image.Image:
         print(f"Generating image with prompt: '{prompt}'")
-        return self.generator_pipe(prompt, num_inference_steps=4, guidance_scale=0.0).images[0]
+        return self.generator_pipe(prompt, num_inference_steps=75, guidance_scale=9.0).images[0]
     
     # --- Azure Chat (from agent_azure_vlm) ---
     def chat_complete_azure(self, deployment: str, messages: List[Dict[str, Any]],
@@ -159,10 +159,10 @@ models = ModelManager()
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
-# ## SECTION 2: ASSET-FINDING TOOL
+# ## SECTION 2: ASSET-GENERATION TOOL (SIMPLIFIED)
 #
-# This is the self-contained graph for finding/generating assets.
-# It will be used as a tool by the "Brain" AND by the Azure pipeline.
+# This graph is now a single-node pipeline.
+# It no longer searches Pexels. It only generates and resizes images.
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 
@@ -180,101 +180,51 @@ class AssetGraphState(TypedDict):
     """State for the asset-finding subgraph."""
     instructions: str
     bounding_box: Tuple[int, int]
-    search_query: str
+    # These are no longer used but kept for schema compatibility
+    search_query: Optional[str]
     found_image_url: Optional[str]
+    # This is the only output
     final_asset_path: Optional[str]
 
-### --- Nodes from asset_tool.py ---
-def asset_prepare_search_query_node(state: AssetGraphState) -> dict:
-    print("---(Asset Tool) NODE: Prepare Search Query---")
-    prompt = f"""You are an expert at refining search queries. Extract only the essential visual keywords.
-**CRITICAL INSTRUCTIONS:**
-- DO NOT include words related to licensing.
-- DO NOT include quotation marks.
-User's request: "{state['instructions']}"
-Respond with ONLY the refined search query."""
-    raw_query = models.chat_llm(prompt)
-    search_query = raw_query.strip().replace('"', '')
-    print(f"Prepared search query: '{search_query}'")
-    return {"search_query": search_query}
-
-def asset_generate_image_node(state: AssetGraphState) -> dict:
-    print("---(Asset Tool) NODE: Generate Image---")
+### --- Node (REPLACES ALL OTHERS) ---
+def asset_generate_and_resize_node(state: AssetGraphState) -> dict:
+    print("---(Asset Tool) NODE: Generate & Resize Image---")
     prompt = state["instructions"]
+    bbox = state.get("bounding_box")
+    
+    # 1. Generate the image
     generated_image = models.generate_image(prompt)
+    
+    # 2. Resize the image if bounding_box is provided
+    if bbox and isinstance(bbox, (tuple, list)) and len(bbox) == 2:
+        try:
+            # Use thumbnail to resize *while maintaining aspect ratio*
+            generated_image.thumbnail(bbox)
+            print(f"Resized image to fit within {bbox}")
+        except Exception as e:
+            print(f"Warning: Could not resize image. Error: {e}")
+
+    # 3. Save the final image
     output_dir = pathlib.Path("Outputs/Assets")
     output_dir.mkdir(parents=True, exist_ok=True)
     filename = f"generated_{uuid4()}.png"
     full_save_path = output_dir / filename
     generated_image.save(full_save_path)
     print(f"Image generated and saved to {full_save_path}")
+    
+    # 4. Create the relative path for HTML
     html_path = pathlib.Path("Assets") / filename
     final_asset_path = str(html_path.as_posix())
-    return {"final_asset_path": final_asset_path}
     
-def asset_download_and_resize_node(state: AssetGraphState) -> dict:
-    print("---(Asset Tool) NODE: Download and Resize---")
-    image_url = state.get("found_image_url")
-    try:
-        response = requests.get(image_url, timeout=10)
-        response.raise_for_status()
-        img = Image.open(BytesIO(response.content))
-        img.thumbnail(state['bounding_box'])
-        output_dir = pathlib.Path("Outputs/Assets")
-        output_dir.mkdir(parents=True, exist_ok=True)
-        filename = f"asset_{uuid4()}.png"
-        full_save_path = output_dir / filename
-        img.save(full_save_path)
-        print(f"Image saved and resized to {full_save_path}")
-        html_path = pathlib.Path("Assets") / filename
-        final_asset_path = str(html_path.as_posix())
-        return {"final_asset_path": final_asset_path}
-    except Exception as e:
-        print(f"Error processing image: {e}")
-        return {"final_asset_path": None}
+    return {"final_asset_path": final_asset_path}
 
-def asset_route_after_search(state: AssetGraphState) -> str:
-    if state.get("found_image_url"):
-        return "download_and_resize"
-    else:
-        print("Search failed. Routing to generate a new image.")
-        return "generate_image"
-        
-def asset_pexels_search_node(state: AssetGraphState) -> dict:
-    print("---(Asset Tool) TOOL: Searching Pexels---")
-    api_key = os.getenv("PEXELS_API_KEY")
-    search_query = state.get("search_query")
-    if not api_key:
-        print("Warning: PEXELS_API_KEY not set. Skipping search.")
-        return {"found_image_url": None}
-    if not search_query:
-        return {"found_image_url": None}
-
-    headers = {"Authorization": api_key}
-    params = {"query": search_query, "per_page": 1}
-    try:
-        response = requests.get("https://api.pexels.com/v1/search", headers=headers, params=params, timeout=10)
-        response.raise_for_status()
-        if response.json().get('photos'):
-            image_url = response.json()['photos'][0]['src']['original']
-            print(f"Found a candidate image: {image_url}")
-            return {"found_image_url": image_url}
-    except requests.exceptions.RequestException as e:
-        print(f"Pexels API Error: {e}")
-    return {"found_image_url": None}
-
-### --- Graph Builder from asset_tool.py ---
+### --- Graph Builder (SIMPLIFIED) ---
 def build_asset_graph():
     workflow = StateGraph(AssetGraphState)
-    workflow.add_node("prepare_search_query", asset_prepare_search_query_node)
-    workflow.add_node("pexels_search", asset_pexels_search_node)
-    workflow.add_node("generate_image", asset_generate_image_node)
-    workflow.add_node("download_and_resize", asset_download_and_resize_node)
-    workflow.set_entry_point("prepare_search_query")
-    workflow.add_edge("prepare_search_query", "pexels_search")
-    workflow.add_conditional_edges("pexels_search", asset_route_after_search)
+    # This is now a single-node graph
+    workflow.add_node("generate_image", asset_generate_and_resize_node)
+    workflow.set_entry_point("generate_image")
     workflow.add_edge("generate_image", END)
-    workflow.add_edge("download_and_resize", END)
     return workflow.compile()
 
 # --- Compile the graph ---
@@ -382,16 +332,14 @@ edit_agent_app = build_edit_graph()
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
-# ## SECTION 4: AZURE VLM PIPELINE
+# ## SECTION 4: AZURE VLM PIPELINE (NEW ASSET FLOW)
 #
-# This pipeline is reordered to be much faster.
-# 1. CodeGen runs FIRST, creating placeholders.
-# 2. A fast regex parser finds the placeholders.
-# 3. Asset search runs.
-# 4. A patcher node inserts the asset paths.
-# 5. Scoring & Refinement run as normal.
-#
-# This completely removes the slow local VLM call from this graph.
+# This pipeline is reordered to your new spec:
+# 1. (Qwen) Plan assets (names, descriptions, sizes).
+# 2. (SD Mini) Generate all assets.
+# 3. (GPT-4) Generate code, using the asset names as placeholders.
+# 4. (Python) Patch the HTML to replace names with final paths.
+# 5. (GPT-4) Score & Refine.
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 
@@ -423,43 +371,37 @@ def extract_html(text: str) -> str:
     i = text.lower().find("<html")
     return text[i:].strip() if i != -1 else text.strip()
 
+# *** UPDATED PATCH HELPER ***
 def _patch_html(html: str, asset_paths: Dict[str, str], messages: List[str]) -> Tuple[str, List[str]]:
-    """Helper to patch HTML with asset paths."""
+    """
+    Helper to patch HTML with asset paths.
+    Replaces src="asset_name" with src="Assets/path/to/asset.png"
+    """
     if not asset_paths:
         messages.append("Patching: No assets to patch.")
         return html, messages
 
-    for component_id, new_path in asset_paths.items():
-        # --- 1. Patch <img> tags ---
-        # This regex finds the *full* <img> tag containing the data-asset-id
-        tag_regex = re.compile(rf'<img[^>]+data-asset-id="{re.escape(component_id)}"[^>]*>', re.I | re.S)
-        match = tag_regex.search(html)
+    for asset_name, new_path in asset_paths.items():
         
-        if match:
-            full_tag = match.group(0)
-            
-            # Now, replace the src="..." attribute *within* that tag string
-            src_regex = re.compile(r'src="[^"]*"', re.I)
-            patched_tag, count = src_regex.subn(f'src="{new_path}"', full_tag)
-            
-            if count > 0:
-                # Replace the old tag with the new patched tag in the full HTML
-                html = html.replace(full_tag, patched_tag)
-                messages.append(f"Patched <img> tag for {component_id} -> {new_path}")
-            else:
-                messages.append(f"Warning: Found <img> tag for {component_id} but couldn't replace src.")
-        else:
-            messages.append(f"Warning: Could not find <img> tag for {component_id} to patch.")
+        # --- 1. Patch <img> tags ---
+        # Regex: src="asset_name" (with optional quotes)
+        img_regex = re.compile(rf'src=(["\']?){re.escape(asset_name)}\1', re.I)
+        replace_with = f'src="{new_path}"'
+        
+        new_html, count = img_regex.subn(replace_with, html)
+        if count > 0:
+            html = new_html
+            messages.append(f"Patched <img> tag for {asset_name} -> {new_path}")
 
-        # --- 2. Special Patch for CSS background-image ---
-        if "hero" in component_id or "background" in component_id:
-            css_regex = re.compile(r'background-image:\s*url\((["\']?)placeholder\1\)', re.I)
-            css_replace_with = f'background-image: url("{new_path}")'
-            
-            new_html, count = css_regex.subn(css_replace_with, html)
-            if count > 0:
-                html = new_html
-                messages.append(f"Patched CSS background-image for {component_id} -> {new_path}")
+        # --- 2. Patch CSS background-image ---
+        # Regex: url("asset_name") or url('asset_name') or url(asset_name)
+        css_regex = re.compile(rf'url\((["\']?){re.escape(asset_name)}\1\)', re.I)
+        css_replace_with = f'url("{new_path}")'
+        
+        new_html, count = css_regex.subn(css_replace_with, html)
+        if count > 0:
+            html = new_html
+            messages.append(f"Patched CSS background-image for {asset_name} -> {new_path}")
     
     return html, messages
 
@@ -523,24 +465,54 @@ Numbers (px) for margins, gaps, radii used across elements.
 Output ONLY the brief text with those headings (no code fences, no JSON).
 """
 
-# *** NEW UPDATED CODE_PROMPT ***
+ASSET_NAMING_SYSTEM = "You are a UI/UX asset planner. Your job is to analyze a wireframe and a UI brief to identify all necessary image assets."
+ASSET_NAMING_PROMPT = """
+Analyze the wireframe image and the UI DESIGN BRIEF.
+Your task is to identify every single component that needs a real image asset (e.g., logos, hero images, card images, user avatars).
+
+Respond with ONLY a JSON list of objects, one for each asset needed.
+If no assets are needed, return an empty list [].
+
+JSON Schema:
+[
+  {
+    "name": "<unique_snake_case_name_for_this_asset_e.g., hero_image, product_ringly_go>",
+    "description": "<detailed description for an image generation model, e.g., 'a photo of a modern office building', 'a geometric logo in blue and white'>",
+    "width": <int_width_in_px_e.g., 1200>,
+    "height": <int_height_in_px_e.g., 400>
+  }
+]
+
+UI DESIGN BRIEF:
+"""
+
 CODE_SYSTEM = "You are a meticulous frontend engineer who writes clean, modern, responsive HTML+CSS."
 CODE_PROMPT = """
-Using the following **RELATIVE LAYOUT DESCRIPTION** and **UI DESIGN BRIEF**, generate a SINGLE, self-contained HTML document:
+You will be given a **RELATIVE LAYOUT DESCRIPTION**, a **UI DESIGN BRIEF**, and a **LIST OF PRE-GENERATED ASSETS**.
 
-Requirements:
-- Semantic tags: header/nav/main/section/footer.
-- One <style> block; no external CSS/JS.
-- Implement the layout: container max-width, gaps, grid columns, and stacking rules per breakpoints.
+Your task is to generate a SINGLE, self-contained HTML document.
 
-- **CRITICAL ASSET RULE: ALL `<img>` tags MUST use placeholders.**
-- **FOR EVERY `<img>` TAG, you MUST set `src="placeholder"` AND add the following attributes:**
-  - `data-asset-id="a-unique-id-for-this-image"`
-  - `data-asset-description="a detailed description for an image search engine"`
-- (Example: <img src="placeholder" data-asset-id="hero-image" data-asset-description="photo of a modern office building">)
-- **DO NOT use external image URLs like 'https://...' in `src` attributes. You MUST use `src="placeholder"`**.
+**CRITICAL ASSET RULE:**
+You MUST use the pre-generated assets. Their names and descriptions are provided below.
+When you need an image, you MUST use its exact **name** (e.g., "hero_image") as the placeholder in the `src` attribute or `url()` function.
 
-- Output ONLY valid HTML starting with <html> and ending with </html>.
+Example:
+- For an `<img>` tag: `<img src="hero_image" alt="...">`
+- For a CSS background: `background-image: url("hero_image");`
+
+DO NOT use `src="placeholder"`, `data-asset-id`, or any external URLs like 'https://...'.
+
+**PRE-GENERATED ASSETS:**
+{asset_info_string}
+
+**UI DESIGN BRIEF:**
+{brief}
+
+**RELATIVE LAYOUT DESCRIPTION:**
+{rel_desc}
+
+---
+Output ONLY valid HTML starting with <html> and ending with </html>.
 """
 
 SCORING_RUBRIC = r"""
@@ -620,6 +592,8 @@ class CodeRefineState:
     shot_width: int
     shot_height: int
     
+    find_assets: bool = False 
+    
     # Runtime state
     image_data_url: Optional[str] = None
     rel_desc: Optional[str] = None
@@ -629,13 +603,16 @@ class CodeRefineState:
     scores: Optional[Dict[str, Any]] = None
     stop_refinement: bool = False
     
-    find_assets: bool = False
+    # Asset fields
+    # asset_plan holds the JSON from Qwen: [{"name": "hero", "description": "...", "width": 1024, "height": 768}]
     asset_plan: List[Dict[str, Any]] = field(default_factory=list)
+    # asset_paths maps the name to the final generated path: {"hero": "Assets/generated_123.png"}
     asset_paths: Dict[str, str] = field(default_factory=dict)
     
     messages: List[str] = field(default_factory=list)
 
 def parse_text_report(report: str) -> Dict[str, Any]:
+    # (Unchanged)
     sb = _section(report, "SCORES")
     scores = {k: _score_val(sb, k, 0) for k in _SCORE_KEYS}
     m_agg = re.search(r"aggregate\s*:\s*([0-9]+(?:\.[0-9]+)?)", sb, flags=re.I)
@@ -658,8 +635,9 @@ def parse_text_report(report: str) -> Dict[str, Any]:
 def refine_with_feedback(vision_deployment: str, wireframe_image: str, current_html: str, feedback: str,
                          css_patch: str = "", html_edits: str = "", regenerate_prompt: str = "",
                          temperature: float = 0.12, max_tokens: int = 2200) -> str:
+    # (Unchanged)
     data_a = encode_image_to_data_url(wireframe_image)
-    refine_instructions = f"{REFINE_PROMPT.strip()}\n\nAPPLY THESE PATCHES EXACTLY:..." # (rest of prompt)
+    refine_instructions = f"{REFINE_PROMPT.strip()}\n\nAPPLY THESE PATCHES EXACTLY:..."
     messages = [
         {"role": "system", "content": REFINE_SYSTEM},
         {"role": "user", "content": [
@@ -674,6 +652,7 @@ def refine_with_feedback(vision_deployment: str, wireframe_image: str, current_h
     return html
 
 def node_stage0(state: CodeRefineState) -> CodeRefineState:
+    # (Unchanged)
     state.image_data_url = encode_image_to_data_url(state.image_path)
     messages = [
         {"role": "system", "content": RELDESC_SYSTEM},
@@ -689,6 +668,7 @@ def node_stage0(state: CodeRefineState) -> CodeRefineState:
     return state
 
 def node_stage1(state: CodeRefineState) -> CodeRefineState:
+    # (Unchanged)
     messages = [
         {"role": "system", "content": BRIEF_SYSTEM},
         {"role": "user", "content": [
@@ -702,89 +682,101 @@ def node_stage1(state: CodeRefineState) -> CodeRefineState:
     state.messages.append("Stage1: Generated UI design brief.")
     return state
 
-def node_stage2(state: CodeRefineState) -> CodeRefineState:
+# *** NEW NODE: Plan assets with Qwen ***
+def node_plan_assets_qwen(state: CodeRefineState) -> CodeRefineState:
+    print("---(Azure VLM) NODE: Planning Assets (Qwen)---")
     messages = [
-        {"role": "system", "content": CODE_SYSTEM},
+        {"role": "system", "content": [{"type": "text", "text": ASSET_NAMING_SYSTEM}]},
         {"role": "user", "content": [
-            {"type":"text", "text": CODE_PROMPT.strip()},
-            {"type":"text", "text": "RELATIVE LAYOUT DESCRIPTION:\n" + state.rel_desc.strip()},
-            {"type":"text", "text": "UI DESIGN BRIEF:\n" + state.brief.strip()},
-            {"type":"text", "text": "ASSET_PATHS:\n{}"}, # Send empty
-        ]},
+            {"type": "text", "text": "Analyze this wireframe image and brief."},
+            {"type": "image", "image": state.image_data_url.split(",")[1]}, # Send b64 data
+            {"type": "text", "text": ASSET_NAMING_PROMPT + state.brief}
+        ]}
     ]
-    raw = models.chat_complete_azure(state.text_deployment, messages, state.temp, state.code_tokens)
-    state.html = extract_html(raw)
+    resp = models.chat_vlm(messages, temperature=0.0, max_new_tokens=1024)
     
-    # Note: We don't save the HTML yet, as it's not patched.
-    state.messages.append("Stage2: Generated HTML (with placeholders).")
+    try:
+        plan = json.loads(resp[resp.find("["):resp.rfind("]")+1])
+        state.asset_plan = plan
+        state.messages.append(f"Stage1.5: Planned {len(plan)} assets (Qwen).")
+        print(f"Asset plan: {plan}")
+    except Exception as e:
+        print(f"Error parsing asset plan: {e}\nResponse was: {resp}")
+        state.asset_plan = []
+        state.messages.append("Stage1.5: Error parsing asset plan (Qwen).")
     return state
 
-def node_plan_assets_from_html(state: CodeRefineState) -> CodeRefineState:
-    """
-    Parses the generated HTML for placeholders and builds the asset_plan.
-    This replaces the slow VLM planner.
-    """
-    print("---(Azure VLM) NODE: Planning assets from HTML placeholders---")
-    # Regex to find: <img ... data-asset-id="..." data-asset-description="...">
-    placeholder_regex = r'<img[^>]+data-asset-id="([^"]+)"[^>]+data-asset-description="([^"]+)"'
-    
-    matches = re.findall(placeholder_regex, state.html, re.I)
-    
-    asset_plan = []
-    for component_id, description in matches:
-        asset_plan.append({
-            "component_id": component_id,
-            "description": description,
-            "bounding_box": {"width": 512, "height": 512} # Use a default size
-        })
-        
-    state.asset_plan = asset_plan
-    state.messages.append(f"Stage2.5: Planned {len(asset_plan)} assets from HTML.")
-    print(f"Asset plan: {asset_plan}")
-    return state
-
-def node_stage1_find_assets(state: CodeRefineState) -> CodeRefineState:
-    print("---(Azure VLM) NODE: Finding Assets---")
+# *** UPDATED NODE: Generate assets (formerly find_assets) ***
+def node_generate_assets(state: CodeRefineState) -> CodeRefineState:
+    print("---(Azure VLM) NODE: Generating Assets---")
     if not state.asset_plan:
-        state.messages.append("Stage2.6: No assets to find.")
+        state.messages.append("Stage1.6: No assets to generate.")
         return state
         
     current_asset_paths = {}
     for asset_request in state.asset_plan:
-        component_id = asset_request.get('component_id')
+        name = asset_request.get('name')
         desc = asset_request.get('description')
-        bbox = asset_request.get('bounding_box', {})
-        if not all([component_id, desc, bbox]): continue
+        width = asset_request.get('width', 512)
+        height = asset_request.get('height', 512)
+
+        if not all([name, desc]): continue
         
-        print(f"-> Finding asset for '{component_id}': {desc}")
-        try:
-            width = int(bbox.get('width', 512))
-            height = int(bbox.get('height', 512))
-        except (ValueError, TypeError):
-            width, height = 512, 512
-            
-        # Call the asset_agent_app
-        result = asset_agent_app.invoke({"instructions": desc, "bounding_box": (width, height)})
+        print(f"-> Generating asset for '{name}': {desc} (Size: {width}x{height})")
+        
+        # Call the asset_agent_app (which is now just the generator)
+        result = asset_agent_app.invoke({
+            "instructions": desc, 
+            "bounding_box": (width, height)
+        })
         
         if final_path := result.get("final_asset_path"):
-            current_asset_paths[component_id] = final_path
-            msg = f"Asset resolved for {component_id}: {final_path}"
-            state.messages.append(msg); print(f"{msg}")
+            current_asset_paths[name] = final_path # Map the *name* to the path
+            msg = f"Asset resolved for {name}: {final_path}"
+            state.messages.append(msg); print(f"    ✅ {msg}")
         else:
-            msg = f"Asset process failed for {component_id}."
-            state.messages.append(msg); print(f"{msg}")
+            msg = f"Asset process failed for {name}."
+            state.messages.append(msg); print(f"    ❌ {msg}")
             
     state.asset_paths = current_asset_paths
     return state
 
-# Patch HTML with found assets 
+# *** UPDATED NODE: Codegen ***
+def node_stage2(state: CodeRefineState) -> CodeRefineState:
+    
+    # Create the asset info string for the prompt
+    asset_info_string = "I have pre-generated the following images for you:\n"
+    if not state.asset_plan:
+        asset_info_string = "No image assets were found or generated. Do not add any `<img>` tags unless they are placeholders."
+    else:
+        for asset in state.asset_plan:
+            asset_info_string += f"- Name: `{asset['name']}` (Description: {asset['description']})\n"
+
+    # Format the prompt
+    prompt = CODE_PROMPT.format(
+        asset_info_string=asset_info_string,
+        brief=state.brief.strip(),
+        rel_desc=state.rel_desc.strip()
+    )
+    
+    messages = [
+        {"role": "system", "content": CODE_SYSTEM},
+        {"role": "user", "content": [{"type":"text", "text": prompt}]},
+    ]
+    
+    raw = models.chat_complete_azure(state.text_deployment, messages, state.temp, state.code_tokens)
+    state.html = extract_html(raw)
+    
+    state.messages.append("Stage2: Generated HTML (with asset names as placeholders).")
+    return state
+
+# *** UPDATED NODE: Patch HTML (replaces plan_assets_from_html) ***
 def node_patch_html_with_assets(state: CodeRefineState) -> CodeRefineState:
     """
-    Replaces the placeholders in the HTML with the paths from asset_paths.
+    Replaces the asset names (e.g., src="hero_image") with the final paths.
     """
-    print("---(Azure VLM) NODE: Patching HTML with assets---")
+    print("---(Azure VLM) NODE: Patching HTML with generated asset paths---")
     
-    # This node must ALWAYS save the file
     if not state.asset_paths:
         state.messages.append("Stage2.7: No assets to patch.")
     else:
@@ -794,7 +786,7 @@ def node_patch_html_with_assets(state: CodeRefineState) -> CodeRefineState:
     # Save the (potentially) patched HTML
     pathlib.Path(state.out_html).parent.mkdir(parents=True, exist_ok=True)
     with open(state.out_html, "w", encoding="utf-8") as f: f.write(state.html)
-    state.messages.append(f"Stage2.7: Saved patched HTML (overwriting) -> {state.out_html}")
+    state.messages.append(f"Stage2.7: Saved patched HTML -> {state.out_html}")
     return state
 
 def node_save_html_pre_score(state: CodeRefineState) -> CodeRefineState:
@@ -814,9 +806,11 @@ def node_save_html_pre_score(state: CodeRefineState) -> CodeRefineState:
     return state
 
 def node_stage3_score(state: CodeRefineState) -> CodeRefineState:
+    # (Unchanged)
     html_path = pathlib.Path(state.out_html)
     shot_png_path = html_path.with_name(html_path.stem + f"_iter{state.current_iteration}.png")
     with sync_playwright() as p:
+        # ... (playwright logic) ...
         browser = p.chromium.launch()
         ctx = browser.new_context(viewport={"width": state.shot_width, "height": state.shot_height}, device_scale_factor=2.0)
         page = ctx.new_page()
@@ -830,6 +824,7 @@ def node_stage3_score(state: CodeRefineState) -> CodeRefineState:
     data_b = encode_image_to_data_url(shot_png_path)
     messages = [
         {"role": "system", "content": "Return the specified PLAIN-TEXT report exactly as instructed."},
+        # ... (scoring messages) ...
         {"role": "user", "content": [
             {"type": "text", "text": SCORING_RUBRIC.strip()},
             {"type": "image_url", "image_url":{"url": data_a}},
@@ -847,6 +842,7 @@ def node_stage3_score(state: CodeRefineState) -> CodeRefineState:
     return state
 
 def node_refine_loop(state: CodeRefineState) -> CodeRefineState:
+    # (Unchanged)
     if state.stop_refinement or state.current_iteration >= state.refine_max_iters:
         state.messages.append("Refinement loop ended.")
         return state
@@ -879,53 +875,55 @@ def node_refine_loop(state: CodeRefineState) -> CodeRefineState:
     return state
 
 def decide_next(state: CodeRefineState) -> str:
+    # (Unchanged)
     if not state.stop_refinement and state.current_iteration < state.refine_max_iters:
         return "refine_loop"
     return "end"
 
-def route_after_codegen(state: CodeRefineState) -> str:
+# *** UPDATED: This router now checks the find_assets boolean ***
+def route_to_asset_planning(state: CodeRefineState) -> str:
     """Checks the find_assets boolean to decide the next step."""
     if state.find_assets:
-        print("-> Configured to find assets. Proceeding to plan from HTML.")
+        print("-> Configured to find assets. Proceeding to Qwen asset planning.")
         return "plan_assets"
     else:
-        print("-> Configured to skip asset search. Proceeding to scoring.")
-        # Skip all asset nodes and go straight to scoring
-        return "score" 
+        print("-> Configured to skip asset search. Proceeding to codegen.")
+        # Skip all asset nodes and go straight to codegen
+        return "codegen" 
 
+# *** NEW, RE-WIRED GRAPH ***
 def build_azure_vlm_graph():
     workflow = StateGraph(CodeRefineState)
     workflow.add_node("stage0", node_stage0)
     workflow.add_node("stage1", node_stage1)
+    workflow.add_node("plan_assets_qwen", node_plan_assets_qwen)
+    workflow.add_node("generate_assets", node_generate_assets)
     workflow.add_node("stage2", node_stage2)
-    workflow.add_node("plan_assets_from_html", node_plan_assets_from_html)
-    workflow.add_node("stage1_find_assets", node_stage1_find_assets)
     workflow.add_node("patch_html", node_patch_html_with_assets)
-    workflow.add_node("save_html_pre_score", node_save_html_pre_score) # <-- ADDED NODE
+    # save_html_pre_score is no longer needed
     workflow.add_node("stage3_score", node_stage3_score)
     workflow.add_node("refine_loop", node_refine_loop)
 
     workflow.set_entry_point("stage0")
     workflow.add_edge("stage0", "stage1")
-    workflow.add_edge("stage1", "stage2")
     
-    # New conditional flow after codegen
+    # New conditional flow after brief
     workflow.add_conditional_edges(
-        "stage2",
-        route_after_codegen,
+        "stage1",
+        route_to_asset_planning,
         {
-            "plan_assets": "plan_assets_from_html",
-            "score": "save_html_pre_score" # <-- CHANGED: Go to save, not score
+            "plan_assets": "plan_assets_qwen",
+            "codegen": "stage2" # Skip to codegen
         }
     )
     
-    # Asset-finding sub-branch (patch_html already saves)
-    workflow.add_edge("plan_assets_from_html", "stage1_find_assets")
-    workflow.add_edge("stage1_find_assets", "patch_html")
-    workflow.add_edge("patch_html", "stage3_score")
+    # Asset-finding branch
+    workflow.add_edge("plan_assets_qwen", "generate_assets")
+    workflow.add_edge("generate_assets", "stage2")
     
-    # New branch for skipping assets
-    workflow.add_edge("save_html_pre_score", "stage3_score") # <-- ADDED EDGE
+    # Main branch after codegen
+    workflow.add_edge("stage2", "patch_html")
+    workflow.add_edge("patch_html", "stage3_score")
     
     # Original refinement loop
     workflow.add_edge("stage3_score", "refine_loop")
@@ -1105,7 +1103,6 @@ class QwenRouterAgent:
         
         last_user_message = messages[-1]['content']
         
-        # *** UPDATED: VLM is now a pure router ***
         router_prompt = f"""
 You are a "command center" agent. Your job is to route a user's request to the correct function
 by providing a single, valid JSON object.
@@ -1116,7 +1113,7 @@ by providing a single, valid JSON object.
     {{
       "function_name": "helper_run_azure_vlm_pipeline",
       "function_args": {{
-        "find_assets": "<bool: set to true ONLY if the user explicitly asks to find assets, otherwise false>"
+        "find_assets": "<bool: ONLY set to true if the user explicitly asks to find assets, default false>"
       }}
     }}
 
@@ -1142,7 +1139,7 @@ by providing a single, valid JSON object.
 1.  Analyze the "User Request" and "Context".
 2.  You **MUST** choose *one* function name **EXACTLY** as it is written in the schemas.
 3.  If the request is to "generate a page", your *only* job is to decide if `find_assets` is true or false.
-4.  If the request is to "edit" or "find an asset", just return the function name with empty args: `{{"function_name": "...", "function_args": {{}}
+4.  If the request is to "edit" or "find an asset", just return the function name with empty args: `{{ "function_name": "...", "function_args": {{}} }}`
 5.  Your response **MUST** be **ONLY** the single, valid JSON object.
 
 ---
