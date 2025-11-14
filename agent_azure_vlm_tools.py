@@ -92,14 +92,13 @@ class ModelManager:
             print(f"Default GPT deployment: {self.default_deployment}")
 
             self.google_api_key = os.getenv("GOOGLE_API_KEY")
-            self.genai_model = None
+            self.genai_client = None
             if not self.google_api_key:
                 print("Warning: GOOGLE_API_KEY not set. Real image generation will be disabled.")
             else:
                 try:
                     self.genai_client = genai.Client(api_key=self.google_api_key)
-                    #self.genai_model = genai.GenerativeModel("gemini-2.0-flash-preview-image-generation")
-                    print("Google GenAI client (Nano Banana) initialized.")
+                    print("Google GenAI client initialized.")
                 except Exception as e:
                     print(f"Error initializing Google GenAI: {e}")
                     self.genai_model = None
@@ -1073,10 +1072,21 @@ def helper_run_asset_search(description: str, width: int = 512, height: int = 51
         print(f"Error in Asset Search helper: {e}")
         return json.dumps({"status": "error", "message": str(e)})
 
+def helper_run_general_chat(user_prompt: str) -> str:
+    print(f"--- BRAIN: Invoking General Chat for '{user_prompt}' ---")
+    try:
+        # Use the existing chat_llm method from ModelManager
+        response = models.chat_llm(user_prompt, temperature=0.7)
+        return response
+    except Exception as e:
+        print(f"Error in General Chat helper: {e}")
+        return json.dumps({"status": "error", "message": str(e)})
+
 helper_functions = [
     helper_run_azure_vlm_pipeline,
     helper_run_code_editor,
     helper_run_asset_search,
+    helper_run_general_chat,
     ]
 
 class QwenRouterAgent:
@@ -1121,8 +1131,8 @@ Valid functions and their schemas:
 3. Find or generate a single image asset
 {{ "function_name": "helper_run_asset_search", "function_args": {{}} }}
 
-4. No function needed
-{{ "function_name": "end", "function_args": {{}} }}
+4. Answer a general question, have a conversation, respond to any other queries
+{{ "function_name": "helper_run_general_chat", "function_args": {{}} }}
 
 Return *only* one JSON object, with no markdown or explanation.
 
@@ -1164,6 +1174,9 @@ Now output the JSON object only:
                 func_args['description'] = last_user_message
                 func_args['width'] = 512
                 func_args['height'] = 512
+            
+            else:
+                func_args['user_prompt'] = last_user_message
 
             return {
                 "next_task": func_name,
@@ -1191,6 +1204,12 @@ def node_run_asset_search(state: BrainState) -> dict:
     args = state['task_args']
     result = helper_run_asset_search(**args)
     return {"task_result": result, "messages": state['messages'] + [{"role": "assistant", "content": result}]}
+
+def node_run_general_chat(state: BrainState) -> dict:
+    print("---(Brain Graph) NODE: node_run_general_char ---")
+    args = state['task_args']
+    result = helper_run_general_chat(**args)
+    return {"task_result": result, "messages": state['messages'] + [{"role": "assistant", "content": result}]}
     
 def brain_router(state: BrainState) -> str:
     next_task = state.get("next_task")
@@ -1202,8 +1221,7 @@ def brain_router(state: BrainState) -> str:
     elif next_task == "helper_run_asset_search":
         return "run_asset"
     else:
-        print(f"No valid next_task set {next_task} — ending workflow.")
-        return "end"
+        return "run_chat"
 
 def build_brain_graph():
     brain_agent_node = QwenRouterAgent(models, helper_functions)
@@ -1214,6 +1232,7 @@ def build_brain_graph():
     workflow.add_node("run_vlm", node_run_vlm_pipeline)
     workflow.add_node("run_edit", node_run_code_editor)
     workflow.add_node("run_asset", node_run_asset_search)
+    workflow.add_node("run_chat", node_run_general_chat)
 
     workflow.set_entry_point("agent")
 
@@ -1224,13 +1243,14 @@ def build_brain_graph():
             "run_vlm": "run_vlm",
             "run_edit": "run_edit",
             "run_asset": "run_asset",
-            "end": END
+            "run_chat": "run_chat"
         }
     )
 
     workflow.add_edge("run_vlm", END)
     workflow.add_edge("run_edit", END)
     workflow.add_edge("run_asset", END)
+    workflow.add_edge("run_chat", END)
 
     return workflow.compile()
 
@@ -1343,6 +1363,16 @@ def main():
         out_rel_desc=None
     )
 
+    # For Test 4: General Chat Pipeline
+    cli_args_chat = argparse.Namespace(
+        prompt="Hello! What is the capital of France?",
+        image=None,
+        html=None,
+        out_html=None,
+        out_brief=None,
+        out_rel_desc=None
+    )
+
     initial_state_vlm = {"messages": [{"role": "user", "content": cli_args_vlm.prompt}], "cli_args": cli_args_vlm}
 
     if not pathlib.Path(cli_args_vlm.image).exists():
@@ -1364,6 +1394,9 @@ def main():
 
     initial_state_asset = {"messages": [{"role": "user", "content": cli_args_asset.prompt}], "cli_args": cli_args_asset}
     run_test("Test 3: Asset Search Pipeline", initial_state_asset)
+
+    initial_state_chat = {"messages": [{"role": "user", "content": cli_args_chat.prompt}], "cli_args": cli_args_chat}
+    run_test("Test 4: General Chat Pipeline", initial_state_chat)
 
 if __name__ == "__main__":
     main()
