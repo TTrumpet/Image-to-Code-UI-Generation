@@ -74,8 +74,8 @@ class ModelManager:
             print("Initializing Azure/OpenAI clients (GPT-only mode)...")
 
             # Azure OpenAI client (for most GPT calls)
-            self.AZURE_ENDPOINT = os.getenv("ENDPOINT_URL", "")
-            self.AZURE_API_KEY = os.getenv("AZURE_OPENAI_API_KEY", "")
+            self.AZURE_ENDPOINT = os.getenv("ENDPOINT_URL")
+            self.AZURE_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
             if not self.AZURE_API_KEY or not self.AZURE_ENDPOINT:
                 print("Warning: AZURE_OPENAI_API_KEY or ENDPOINT_URL not set.")
                 self.azure_client = None
@@ -102,6 +102,10 @@ class ModelManager:
                 except Exception as e:
                     print(f"Error initializing Google GenAI: {e}")
                     self.genai_model = None
+            
+            self.pexels_api_key = os.getenv("PEXELS_API_KEY")
+            if not self.pexels_api_key:
+                print("Warning: PEXELS_API_KEY not set. Image fallback will use text placeholders.")
 
     def get_azure_client(self) -> AzureOpenAI:
         if not hasattr(self, 'azure_client') or self.azure_client is None:
@@ -133,36 +137,72 @@ class ModelManager:
 
     def _create_placeholder_image(self, prompt: str, width: int = 1024, height: int = 512) -> Image.Image:
         """
-        Internal fallback function to create a placeholder image.
-        (This is your original generate_image logic)
+        Internal fallback function.
+        TRIES: Pexels search and resize.
+        FALLBACK: Creates a simple text-based placeholder image.
         """
-        W, H = width, height
-        img = Image.new("RGB", (W, H), color=(240, 240, 240))
-        d = ImageDraw.Draw(img)
         try:
-            font_size = max(16, int(H / 25)) 
-            font = ImageFont.truetype("DejaVuSans.ttf", font_size)
-        except Exception:
-            font = ImageFont.load_default()
-            font_size = 12
-        
-        lines = []
-        max_chars = max(20, int(W / (font_size * 0.6)))
-        for i in range(0, len(prompt), max_chars):
-            lines.append(prompt[i:i+max_chars])
-        
-        y = 20
-        d.text((20, y), f"PLACEHOLDER ({W}x{H})", fill=(30, 30, 30), font=font)
-        y += (font_size + 10)
-        
-        for line in lines:
-            if y > (H - (font_size + 10)):
-                d.text((20, y), "...", fill=(60, 60, 60), font=font)
-                break
-            d.text((20, y), line, fill=(60, 60, 60), font=font)
-            y += (font_size + 2)
+            # --- TRY 1: PEXELS SEARCH & RESIZE ---
+            if not self.pexels_api_key:
+                raise ValueError("PEXELS_API_KEY not set.")
             
-        return img
+            print(f"-> Fallback: Trying Pexels search for: {prompt}")
+            headers = {"Authorization": self.pexels_api_key}
+            # Clean up prompt for search
+            search_query = prompt.replace("[API Error]", "").replace("[GenAI No Image]", "").strip()
+            params = {"query": search_query, "per_page": 1, "size": "large"}
+            
+            response = requests.get("https://api.pexels.com/v1/search", headers=headers, params=params, timeout=7)
+            response.raise_for_status()
+            data = response.json()
+            
+            if data.get('photos'):
+                image_url = data['photos'][0]['src']['large2x'] # Use a high-res source
+                print(f"-> Pexels found: {image_url}")
+                
+                # Download the image
+                img_response = requests.get(image_url, timeout=10)
+                img_response.raise_for_status()
+                
+                # Open, resize to exact dimensions, and return
+                img = Image.open(BytesIO(img_response.content))
+                img_resized = img.resize((width, height), Image.Resampling.LANCZOS)
+                print(f"-> Pexels image downloaded and resized to {width}x{height}")
+                return img_resized
+            else:
+                raise ValueError("Pexels search returned no photos.")
+
+        except Exception as e:
+            # --- FALLBACK 2: ORIGINAL TEXT PLACEHOLDER ---
+            print(f"-> Pexels fallback failed ({e}), creating text placeholder.")
+            
+            W, H = width, height
+            img = Image.new("RGB", (W, H), color=(240, 240, 240))
+            d = ImageDraw.Draw(img)
+            try:
+                font_size = max(16, int(H / 25)) 
+                font = ImageFont.truetype("DejaVuSans.ttf", font_size)
+            except Exception:
+                font = ImageFont.load_default()
+                font_size = 12
+            
+            lines = []
+            max_chars = max(20, int(W / (font_size * 0.6)))
+            for i in range(0, len(prompt), max_chars):
+                lines.append(prompt[i:i+max_chars])
+            
+            y = 20
+            d.text((20, y), f"PLACEHOLDER ({W}x{H})", fill=(30, 30, 30), font=font)
+            y += (font_size + 10)
+            
+            for line in lines:
+                if y > (H - (font_size + 10)):
+                    d.text((20, y), "...", fill=(60, 60, 60), font=font)
+                    break
+                d.text((20, y), line, fill=(60, 60, 60), font=font)
+                y += (font_size + 2)
+                
+            return img
 
     def generate_image(self, prompt: str, width: int = 1024, height: int = 512) -> Image.Image:
         """
@@ -180,7 +220,7 @@ class ModelManager:
             print(f"-> Calling Gemini 2.0 Flash with prompt: '{enhanced_prompt}'")
 
             response = self.genai_client.models.generate_content(
-                    model="gemini-2.0-flash-preview-image-generation",
+                    model="gemini-2.5-flash-image",
                     contents=enhanced_prompt,
                     config=types.GenerateContentConfig(
                         response_modalities=["TEXT", "IMAGE"]
@@ -574,10 +614,10 @@ Output ONLY valid HTML starting with <html> and ending with </html>.
 
 PLAN_ASSETS_SYSTEM = "You are an expert UI analyst. You extract asset requirements from a brief."
 PLAN_ASSETS_PROMPT = """
-Read the following UI DESIGN BRIEF. Your task is to identify all image assets required to build the page.
+Read the following UI DESIGN BRIEF. Your task is to identify the major image assets required to build the page. MAX 10 assets.
 
 For each image asset, you MUST specify a unique `component_id` (e.g., "hero-image", "card-icon-1")
-and a `data-asset-description` (a detailed prompt for an image search/generator).
+and a `description` (a detailed prompt for an image search/generator).
 
 **CRITICAL:** Respond with ONLY a valid JSON list of objects. Do not include any other text.
 
