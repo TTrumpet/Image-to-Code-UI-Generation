@@ -981,12 +981,19 @@ class BrainState(TypedDict):
     task_args: Optional[Dict[str, Any]] = None
     task_result: Optional[str] = None
 
-def helper_run_azure_vlm_pipeline(image_path: str, find_assets: bool,
-out_html_path: str, out_brief_path: str, out_reldesc_path: str) -> str:
+def helper_run_azure_vlm_pipeline(
+    image_path: str, 
+    find_assets: bool,
+    out_html_path: str, 
+    out_brief_path: str, 
+    out_reldesc_path: str,
+    vision_deployment: str,
+    text_deployment: str,
+    refine_max_iters: int,
+    refine_threshold: int
+) -> str:
     print(f"--- BRAIN: Invoking Azure VLM Pipeline for {image_path} (Find Assets: {find_assets}) ---")
     try:
-        vision_deployment = "gpt-4.1-mini"
-        text_deployment = "gpt-4.1-mini"
         pathlib.Path(out_html_path).parent.mkdir(parents=True, exist_ok=True)
 
         state = CodeRefineState(
@@ -997,13 +1004,14 @@ out_html_path: str, out_brief_path: str, out_reldesc_path: str) -> str:
             vision_deployment=vision_deployment,
             text_deployment=text_deployment,
             find_assets=find_assets,
+            refine_max_iters=refine_max_iters,
+            refine_threshold=refine_threshold,
+            # Hardcoded values remain for now
             reldesc_tokens=700,
             brief_tokens=1100,
             code_tokens=2200,
             judge_tokens=900,
             temp=0.12,
-            refine_max_iters=3,
-            refine_threshold=8,
             shot_width=1536,
             shot_height=900
         )
@@ -1119,10 +1127,8 @@ Valid functions and their schemas:
 
 1. Generate a new HTML page from an image wireframe
 {{
-  "function_name": "helper_run_azure_vlm_pipeline",
-  "function_args": {{
-    "find_assets": "<bool: true if user asks to find assets, otherwise false>"
-  }}
+ "function_name": "helper_run_azure_vlm_pipeline",
+ "function_args": {{}}
 }}
 
 2. Edit an existing HTML file
@@ -1131,8 +1137,11 @@ Valid functions and their schemas:
 3. Find or generate a single image asset
 {{ "function_name": "helper_run_asset_search", "function_args": {{}} }}
 
-4. Answer a general question, have a conversation, respond to any other queries
+4. Answer a general question, have a conversation, or respond to a greeting
 {{ "function_name": "helper_run_general_chat", "function_args": {{}} }}
+
+5. No function needed (if the request is unclear or no action is possible)
+{{ "function_name": "end", "function_args": {{}} }}
 
 Return *only* one JSON object, with no markdown or explanation.
 
@@ -1159,11 +1168,15 @@ Now output the JSON object only:
                 return {"next_task": "end", "task_result": "No operation selected."}
 
             if func_name == "helper_run_azure_vlm_pipeline":
-                func_args['find_assets'] = func_args.get('find_assets', False)
+                func_args['find_assets'] = cli_args.find_assets
                 func_args['image_path'] = cli_args.image
                 func_args['out_html_path'] = cli_args.out_html
                 func_args['out_brief_path'] = cli_args.out_brief
                 func_args['out_reldesc_path'] = cli_args.out_rel_desc
+                func_args['vision_deployment'] = cli_args.vision_deployment
+                func_args['text_deployment'] = cli_args.text_deployment
+                func_args['refine_max_iters'] = cli_args.refine_max_iters
+                func_args['refine_threshold'] = cli_args.refine_threshold
 
             elif func_name == "helper_run_code_editor":
                 func_args['html_path'] = cli_args.html
@@ -1175,7 +1188,7 @@ Now output the JSON object only:
                 func_args['width'] = 512
                 func_args['height'] = 512
             
-            else:
+            elif func_name == "helper_run_general_chat":
                 func_args['user_prompt'] = last_user_message
 
             return {
@@ -1257,146 +1270,133 @@ def build_brain_graph():
 brain_app = build_brain_graph()
 #----------------------------------------------------------------------
 #----------------------------------------------------------------------
-## SECTION 6: CLI RUNNER (MAIN) - SIMPLIFIED FOR TESTING
+## SECTION 6: CLI RUNNER (MAIN)
 #----------------------------------------------------------------------
 #----------------------------------------------------------------------
-def run_test(test_name: str, initial_state: BrainState):
-    print("\n" + "="*70)
-    print(f"--- STARTING TEST: {test_name} ---")
-    print(f"--- User Prompt: {initial_state['messages'][0]['content']} ---")
-    run_id = f"brain-test-{uuid4()}"
-    config = {"configurable": {"thread_id": run_id}}
 
+def main():
+    # --- Setup Argparse ---
+    parser = argparse.ArgumentParser(description="Image-to-Code Agent CLI")
+    
+    # Primary task argument
+    parser.add_argument(
+        "-p", "--prompt", 
+        type=str, 
+        default="Generate a code using this image.",
+        help="The main user request or prompt."
+    )
+    
+    # File inputs
+    parser.add_argument(
+        "-i", "--image", 
+        type=str, 
+        default=None, 
+        help="Path to the input wireframe image (for VLM pipeline)."
+    )
+    parser.add_argument(
+        "--html", 
+        type=str, 
+        default=None, 
+        help="Path to the input HTML file (for code editor)."
+    )
+    
+    # File outputs
+    parser.add_argument(
+        "--out_html", 
+        type=str, 
+        default="Outputs/agent_output.html", 
+        help="Path for the final output HTML file."
+    )
+    parser.add_argument(
+        "--out_brief", 
+        type=str, 
+        default="Outputs/agent_brief.txt", 
+        help="Path for the output UI brief."
+    )
+    parser.add_argument(
+        "--out_rel_desc", 
+        type=str, 
+        default="Outputs/agent_reldesc.txt", 
+        help="Path for the output relative description."
+    )
+
+    # VLM Pipeline options
+    parser.add_argument(
+        "--find_assets", 
+        action="store_true", 
+        help="Enable the asset search/generation pipeline."
+    )
+    parser.add_argument(
+        "--vision_deployment", 
+        type=str, 
+        default=GPT_DEPLOYMENT_DEFAULT, 
+        help="Azure deployment name for vision tasks."
+    )
+    parser.add_argument(
+        "--text_deployment", 
+        type=str, 
+        default=GPT_DEPLOYMENT_DEFAULT, 
+        help="Azure deployment name for text tasks."
+    )
+    parser.add_argument(
+        "--refine_max_iters", 
+        type=int, 
+        default=3, 
+        help="Maximum refinement iterations."
+    )
+    parser.add_argument(
+        "--refine_threshold", 
+        type=int, 
+        default=8, 
+        help="Minimum score to stop refinement."
+    )
+    
+    args = parser.parse_args()
+
+    # --- Setup Environment ---
+    print("Setting up output directories...")
+    pathlib.Path("Outputs/Assets").mkdir(parents=True, exist_ok=True)
+    # Ensure directories for all output files exist
+    if args.out_html:
+        pathlib.Path(args.out_html).parent.mkdir(parents=True, exist_ok=True)
+    if args.out_brief:
+        pathlib.Path(args.out_brief).parent.mkdir(parents=True, exist_ok=True)
+    if args.out_rel_desc:
+        pathlib.Path(args.out_rel_desc).parent.mkdir(parents=True, exist_ok=True)
+
+    # --- Prepare Initial State ---
+    print(f"--- STARTING AGENT ---")
+    print(f"--- User Prompt: {args.prompt} ---")
+    
+    initial_state = {
+        "messages": [{"role": "user", "content": args.prompt}],
+        "cli_args": args  # Pass all parsed args to the agent state
+    }
+
+    # --- Run Agent ---
+    run_id = f"brain-run-{uuid4()}"
+    config = {"configurable": {"thread_id": run_id}}
+    
     final_state = brain_app.invoke(initial_state, config=config)
 
+    # --- Print Final Result ---
     print("\n" + ("-"*25) + " BRAIN INVOCATION COMPLETE " + ("-"*25))
-
     print("--- Final Task Result ---")
+    
     task_result_str = final_state.get('task_result', "No result found (task may have ended early).")
 
     if task_result_str:
         try:
+            # Try to parse as JSON for pretty printing
             output_json = json.loads(task_result_str)
             print(json.dumps(output_json, indent=2))
         except json.JSONDecodeError:
+            # If it's not JSON (like a chat response), print raw
             print(task_result_str)
     else:
         print("No final task result recorded.")
-
+    
     print("="*70)
-
-def main():
-    pathlib.Path("Outputs/Assets").mkdir(parents=True, exist_ok=True)
-    pathlib.Path("Outputs").mkdir(parents=True, exist_ok=True)
-    test_edit_file_path = "Outputs/test_page_to_edit.html"
-    dummy_html = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Original Test Title</title>
-</head>
-<body>
-    <h1>This is the original headline.</h1>
-    <p>This is a paragraph.</p>
-</body>
-</html>
-    """
-    with open(test_edit_file_path, "w", encoding="utf-8") as f:
-        f.write(dummy_html)
-    print(f"Created dummy file for editing at: {test_edit_file_path}")
-    if not pathlib.Path("Images/2.png").exists():
-        print("\n--- WARNING ---")
-        print("Test 1 (Azure VLM) requires an image at 'Images/2.png'.")
-        print("Please add an image there or Test 1 will be skipped.")
-        print("---------------\n")
-
-    if not pathlib.Path("Images/asset_test.png").exists():
-        print("\n--- WARNING ---")
-        print("Test 1.5 (Azure VLM + Asset Search) requires an image at 'Images/asset_test.png'.")
-        print("This test *specifically* verifies the internal asset search.")
-        print("Please add an image with clear image placeholders, or Test 1.5 will be skipped.")
-        print("---------------\n")
-
-    # Re-use the same test-run setup as before, but now defaulting to GPT-only deployments
-    # For brevity, this main keeps the previous test harness but will skip missing images.
-
-    # For Test 1: Azure VLM Pipeline
-    cli_args_vlm = argparse.Namespace(
-        prompt="Generate a new HTML page from the wireframe at Images/2.png",
-        image="Images/2.png",
-        html=None,
-        out_html="Outputs/test1_output.html",
-        out_brief="Outputs/test1_brief.txt",
-        out_rel_desc="Outputs/test1_reldesc.txt"
-    )
-
-    # For Test 1.5: Azure internal asset search
-    asset_test_image_path = "Images/asset_test.png"
-    cli_args_vlm_assets = argparse.Namespace(
-        prompt=f"Generate the page from {asset_test_image_path}, and find all image assets.",
-        image=asset_test_image_path,
-        html=None,
-        out_html="Outputs/test1.5_output.html",
-        out_brief="Outputs/test1.5_brief.txt",
-        out_rel_desc="Outputs/test1.5_reldesc.txt"
-    )
-
-    # For Test 2: Code Editor Pipeline
-    test_edit_file = test_edit_file_path
-    cli_args_edit = argparse.Namespace(
-        prompt="Change the title to 'Edited by Brain Agent' and make the h1 tag red.",
-        image=None,
-        html=test_edit_file,
-        out_html="Outputs/test2_output_edited.html",
-        out_brief=None,
-        out_rel_desc=None
-    )
-
-    # For Test 3: Asset Search Pipeline
-    cli_args_asset = argparse.Namespace(
-        prompt="Find a high-quality photo of a 'modern office desk with a laptop'",
-        image=None,
-        html=None,
-        out_html=None,
-        out_brief=None,
-        out_rel_desc=None
-    )
-
-    # For Test 4: General Chat Pipeline
-    cli_args_chat = argparse.Namespace(
-        prompt="Hello! What is the capital of France?",
-        image=None,
-        html=None,
-        out_html=None,
-        out_brief=None,
-        out_rel_desc=None
-    )
-
-    initial_state_vlm = {"messages": [{"role": "user", "content": cli_args_vlm.prompt}], "cli_args": cli_args_vlm}
-
-    if not pathlib.Path(cli_args_vlm.image).exists():
-        print(f"--- WARNING: Skipping Test 1 ---")
-        print(f"Test image not found at: {cli_args_vlm.image}")
-    else:
-        run_test("Test 1: Azure VLM Pipeline (Image-to-Code)", initial_state_vlm)
-
-    initial_state_vlm_assets = {"messages": [{"role": "user", "content": cli_args_vlm_assets.prompt}], "cli_args": cli_args_vlm_assets}
-    if not pathlib.Path(cli_args_vlm_assets.image).exists():
-        print(f"\n--- WARNING: Skipping Test 1.5 ---")
-        print(f"Asset test image not found at: {cli_args_vlm_assets.image}")
-        print("This is the specific test for the internal asset-search pipeline.")
-    else:
-        run_test("Test 1.5: Azure VLM Pipeline (with Asset Search)", initial_state_vlm_assets)
-
-    initial_state_edit = {"messages": [{"role": "user", "content": cli_args_edit.prompt}], "cli_args": cli_args_edit}
-    run_test("Test 2: Code Editor Pipeline (gpt-4.1-mini)", initial_state_edit)
-
-    initial_state_asset = {"messages": [{"role": "user", "content": cli_args_asset.prompt}], "cli_args": cli_args_asset}
-    run_test("Test 3: Asset Search Pipeline", initial_state_asset)
-
-    initial_state_chat = {"messages": [{"role": "user", "content": cli_args_chat.prompt}], "cli_args": cli_args_chat}
-    run_test("Test 4: General Chat Pipeline", initial_state_chat)
 
 if __name__ == "__main__":
     main()
