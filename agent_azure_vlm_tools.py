@@ -620,7 +620,7 @@ Output ONLY valid HTML starting with <html> and ending with </html>.
 
 PLAN_ASSETS_SYSTEM = "You are an expert UI analyst. You extract asset requirements from a brief."
 PLAN_ASSETS_PROMPT = """
-Read the following UI DESIGN BRIEF. Your task is to identify the major image assets required to build the page. MAX 5 assets.
+Read the following UI DESIGN BRIEF. Your task is to identify the major image assets required to build the page. MAX 10 assets.
 
 For each image asset, you MUST specify a unique `component_id` (e.g., "hero-image", "card-icon-1")
 and a `description` (a detailed prompt for an image search/generator).
