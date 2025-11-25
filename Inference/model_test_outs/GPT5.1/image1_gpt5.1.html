@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Blog</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #fafafa;
+        color: #333;
+    }
+
+    header {
+        background: #222;
+        padding: 15px 0;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        gap: 20px;
+    }
+
+    nav ul li a {
+        color: #eee;
+        text-decoration: none;
+        padding: 8px 16px;
+        background: #333;
+        border-radius: 4px;
+        transition: 0.2s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+        background: #007bff;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .card {
+        flex: 1;
+        background: #fff;
+        padding: 20px;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+        margin-top: 0;
+        font-size: 20px;
+    }
+
+    .card p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .card button {
+        margin-top: 10px;
+        padding: 8px 16px;
+        border: none;
+        background: #d9534f;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .card button.green {
+        background: #5cb85c;
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px 0;
+        font-size: 14px;
+        color: #777;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#" class="active">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="container">
+    <div class="card">
+        <h2>Latest Post</h2>
+        <p>Get to know about the emerging trends in the tech world in our latest blog post.</p>
+        <button>Read More</button>
+    </div>
+
+    <div class="card">
+        <h2>Featured Post</h2>
+        <p>Check out the most popular blog post this week on AI and Machine Learning.</p>
+        <button class="green">Read More</button>
+    </div>
+</section>
+
+<footer>
+    © Tech Blog 2022
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,653 @@
+image,raw_output,status
+1.png,"system
+You are a helpful assistant.
+user
+You are an expert UI layout analyzer. Analyze this wireframe and output a precise, hierarchical JSON structure that captures the full layout and nesting of components.
+
+Representation rules:
+- Each component is an object with:
+  • 'type': the component name (e.g., page, header, nav, hero, section, row, column, button, image, card, footer)
+  • 'attributes': a dictionary of visual attributes such as color, position (top/left), size, alignment, and text content if visible.
+  • 'children': a list of components visually contained within that element.
+
+Hierarchy and structure guidelines:
+- The root node must be the full page ('type': 'page').
+- Preserve the **visual and logical nesting** — if elements appear inside a container, section, or div, they must be represented as its children.
+- Group horizontally aligned components together within a 'row' container.
+- Within each 'row', represent vertical stacking as separate 'column' components where appropriate.
+- Maintain left-to-right and top-to-bottom order strictly as seen in the layout.
+- Ensure sibling components appear in correct sequence and avoid flattening nested structures.
+
+Output requirements:
+- Output only **valid JSON** — no text or explanation outside the JSON.
+- The structure must be complete and balanced (all brackets closed).
+- Pay particular attention to the **arrangement and nesting of divs**, preserving all parent–child relationships exactly as seen visually.
+assistant
+```json
+{
+  ""type"": ""page"",
+  ""attributes"": {},
+  ""children"": [
+    {
+      ""type"": ""header"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""top"",
+        ""size"": ""small"",
+        ""text_content"": """"
+      },
+      ""children"": []
+    },
+    {
+      ""type"": ""nav"",
+      ""attributes"": {
+        ""color"": ""black"",
+        ""position"": ""top"",
+        ""size"": ""small"",
+        ""text_content"": [""Home"", ""About Us"", ""Blog"", ""Contact""]
+      },
+      ""children"": [
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""black"",
+            ""position"": ""top"",
+            ""size"": ""small"",
+            ""text_content"": ""Home""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""black"",
+            ""position"": ""top"",
+            ""size"": ""small"",
+            ""text_content"": ""About Us""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""blue"",
+            ""position"": ""top"",
+            ""size"": ""small"",
+            ""text_content"": ""Blog""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""black"",
+            ""position"": ""top"",
+            ""size"": ""small"",
+            ""text_content"": ""Contact""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""section"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""center"",
+        ""size"": ""medium"",
+        ""text_content"": """"
+      },
+      ""children"": [
+        {
+          ""type"": ""row"",
+          ""attributes"": {
+            ""color"": ""white"",
+            ""position"": ""center"",
+            ""size"": ""medium"",
+            ""text_content"": """"
+          },
+          ""children"": [
+            {
+              ""type"": ""column"",
+              ""attributes"": {
+                ""color"": ""white"",
+                ""position"": ""left"",
+                ""size"": ""large"",
+                ""text_content"": ""Latest Post""
+              },
+              ""children"": [
+                {
+                  ""type"": ""card"",
+                  ""attributes"": {
+                    ""color"": ""gray"",
+                    ""position"": ""left"",
+                    ""size"": ""large"",
+                    ""text_content"": ""Get to know about the emerging trends in the tech world in our latest blog post.""
+                  },
+                  ""children"": [
+                    {
+                      ""type"": ""button"",
+                      ""attributes"": {
+                        ""color"": ""red"",
+                        ""position"": ""left"",
+                        ""size"": ""large"",
+                        ""text_content"": ""Read More""
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              ""type"": ""column"",
+              ""attributes"": {
+                ""color"": ""white"",
+                ""position"": ""right"",
+                ""size"": ""large"",
+                ""text_content"": ""Featured Post""
+              },
+              ""children"": [
+                {
+                  ""type"": ""card"",
+                  ""attributes"": {
+                    ""color"": ""gray"",
+                    ""position"": ""right"",
+                    ""size"": ""large"",
+                    ""text_content"": ""Check out the most popular blog post this week on AI and Machine Learning.""
+                  },
+                  ""children"": [
+                    {
+                      ""type"": ""button"",
+                      ""attributes"": {
+                        ""color"": ""green"",
+                        ""position"": ""right"",
+                        ""size"": ""large"",
+                        ""text_content"": ""Read More""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      ""type"": ""footer"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""bottom"",
+        ""size"": ""small"",
+        ""text_content"": ""© Tech Blog 2022""
+      },
+      ""children"": []
+    }
+  ]
+}
+```",invalid_json
+2.png,"system
+You are a helpful assistant.
+user
+You are an expert UI layout analyzer. Analyze this wireframe and output a precise, hierarchical JSON structure that captures the full layout and nesting of components.
+
+Representation rules:
+- Each component is an object with:
+  • 'type': the component name (e.g., page, header, nav, hero, section, row, column, button, image, card, footer)
+  • 'attributes': a dictionary of visual attributes such as color, position (top/left), size, alignment, and text content if visible.
+  • 'children': a list of components visually contained within that element.
+
+Hierarchy and structure guidelines:
+- The root node must be the full page ('type': 'page').
+- Preserve the **visual and logical nesting** — if elements appear inside a container, section, or div, they must be represented as its children.
+- Group horizontally aligned components together within a 'row' container.
+- Within each 'row', represent vertical stacking as separate 'column' components where appropriate.
+- Maintain left-to-right and top-to-bottom order strictly as seen in the layout.
+- Ensure sibling components appear in correct sequence and avoid flattening nested structures.
+
+Output requirements:
+- Output only **valid JSON** — no text or explanation outside the JSON.
+- The structure must be complete and balanced (all brackets closed).
+- Pay particular attention to the **arrangement and nesting of divs**, preserving all parent–child relationships exactly as seen visually.
+assistant
+```json
+{
+  ""type"": ""page"",
+  ""attributes"": {
+    ""color"": ""#ffffff"",
+    ""position"": ""center"",
+    ""size"": ""100%"",
+    ""alignment"": ""center""
+  },
+  ""children"": [
+    {
+      ""type"": ""header"",
+      ""attributes"": {
+        ""color"": ""#3498db"",
+        ""position"": ""top"",
+        ""size"": ""50px"",
+        ""alignment"": ""left""
+      },
+      ""children"": [
+        {
+          ""type"": ""nav"",
+          ""attributes"": {
+            ""color"": ""#3498db"",
+            ""position"": ""top"",
+            ""size"": ""50px"",
+            ""alignment"": ""left""
+          },
+          ""children"": [
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""#3498db"",
+                ""position"": ""top"",
+                ""size"": ""50px"",
+                ""alignment"": ""left"",
+                ""text"": ""Home""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""#34495e"",
+                ""position"": ""top"",
+                ""size"": ""50px"",
+                ""alignment"": ""left"",
+                ""text"": ""About Us""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""#34495e"",
+                ""position"": ""top"",
+                ""size"": ""50px"",
+                ""alignment"": ""left"",
+                ""text"": ""Job Listings""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      ""type"": ""hero"",
+      ""attributes"": {
+        ""color"": ""#f2f2f2"",
+        ""position"": ""center"",
+        ""size"": ""200px"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""welcome"",
+          ""attributes"": {
+            ""color"": ""#34495e"",
+            ""position"": ""top"",
+            ""size"": ""20px"",
+            ""alignment"": ""left"",
+            ""text"": ""Welcome""
+          }
+        },
+        {
+          ""type"": ""message"",
+          ""attributes"": {
+            ""color"": ""#34495e"",
+            ""position"": ""top"",
+            ""size"": ""10px"",
+            ""alignment"": ""left"",
+            ""text"": ""Your next career step is just a few clicks away. Start your journey with us today.""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""#27ae60"",
+            ""position"": ""top"",
+            ""size"": ""50px"",
+            ""alignment"": ""left"",
+            ""text"": ""Search Jobs""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""row"",
+      ""attributes"": {
+        ""color"": ""#f2f2f2"",
+        ""position"": ""center"",
+        ""size"": ""200px"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""column"",
+          ""attributes"": {
+            ""color"": ""#f2f2f2"",
+            ""position"": ""left"",
+            ""size"": ""50%"",
+            ""alignment"": ""left""
+          },
+          ""children"": [
+            {
+              ""type"": ""section"",
+              ""attributes"": {
+                ""color"": ""#f2f2f2"",
+                ""position"": ""top"",
+                ""size"": ""20px"",
+                ""alignment"": ""left"",
+                ""text"": ""About Us""
+              }
+            },
+            {
+              ""type"": ""message"",
+              ""attributes"": {
+                ""color"": ""#34495e"",
+                ""position"": ""top"",
+                ""size"": ""10px"",
+                ""alignment"": ""left"",
+                ""text"": ""We are a leading recruitment portal specializing in connecting employers and job seekers.""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""#e74c3c"",
+                ""position"": ""top"",
+                ""size"": ""50px"",
+                ""alignment"": ""left"",
+                ""text"": ""Learn More""
+              }
+            }
+          ]
+        },
+        {
+          ""type"": ""column"",
+          ""attributes"": {
+            ""color"": ""#f2f2f2"",
+            ""position"": ""right"",
+            ""size"": ""50%"",
+            ""alignment"": ""left""
+          },
+          ""children"": [
+            {
+              ""type"": ""section"",
+              ""attributes"": {
+                ""color"": ""#f2f2f2"",
+                ""position"": ""top"",
+                ""size"": ""20px"",
+                ""alignment"": ""left"",
+                ""text"": ""Contact Us""
+              }
+            },
+            {
+              ""type"": ""message"",
+              ""attributes"": {
+                ""color"": ""#34495e"",
+                ""position"": ""top"",
+                ""size"": ""10px"",
+                ""alignment"": ""left"",
+                ""text"": ""For any inquiries or support, feel free to reach out to us.""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""#f39c12"",
+                ""position"": ""top"",
+                ""size"": ""50px"",
+                ""alignment"": ""left"",
+                ""text"": ""Contact Us""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      ""type"": ""footer"",
+      ""attributes"": {
+        ""color"": ""#f2f2f2"",
+        ""position"": ""bottom"",
+        ""size"": ""20px"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""copyright"",
+          ""attributes"": {
+            ""color"": ""#34495e"",
+            ""position"": ""top"",
+            ""size"": ""10px"",
+            ""alignment"": ""left"",
+            ""text"": ""© Recruitment Portal 2022""
+          }
+        }
+      ]
+    }
+  ]
+}
+```",invalid_json
+3.png,"system
+You are a helpful assistant.
+user
+You are an expert UI layout analyzer. Analyze this wireframe and output a precise, hierarchical JSON structure that captures the full layout and nesting of components.
+
+Representation rules:
+- Each component is an object with:
+  • 'type': the component name (e.g., page, header, nav, hero, section, row, column, button, image, card, footer)
+  • 'attributes': a dictionary of visual attributes such as color, position (top/left), size, alignment, and text content if visible.
+  • 'children': a list of components visually contained within that element.
+
+Hierarchy and structure guidelines:
+- The root node must be the full page ('type': 'page').
+- Preserve the **visual and logical nesting** — if elements appear inside a container, section, or div, they must be represented as its children.
+- Group horizontally aligned components together within a 'row' container.
+- Within each 'row', represent vertical stacking as separate 'column' components where appropriate.
+- Maintain left-to-right and top-to-bottom order strictly as seen in the layout.
+- Ensure sibling components appear in correct sequence and avoid flattening nested structures.
+
+Output requirements:
+- Output only **valid JSON** — no text or explanation outside the JSON.
+- The structure must be complete and balanced (all brackets closed).
+- Pay particular attention to the **arrangement and nesting of divs**, preserving all parent–child relationships exactly as seen visually.
+assistant
+```json
+{
+  ""type"": ""page"",
+  ""attributes"": {
+    ""color"": ""#ffffff"",
+    ""position"": ""center"",
+    ""size"": ""100%"",
+    ""alignment"": ""center""
+  },
+  ""children"": [
+    {
+      ""type"": ""header"",
+      ""attributes"": {
+        ""color"": ""#333333"",
+        ""position"": ""top"",
+        ""size"": ""50px"",
+        ""alignment"": ""center""
+      },
+      ""children"": []
+    },
+    {
+      ""type"": ""nav"",
+      ""attributes"": {
+        ""color"": ""#333333"",
+        ""position"": ""top"",
+        ""size"": ""40px"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""#333333"",
+            ""position"": ""left"",
+            ""size"": ""40px"",
+            ""alignment"": ""left"",
+            ""text"": ""Home""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""#333333"",
+            ""position"": ""middle"",
+            ""size"": ""40px"",
+            ""alignment"": ""left"",
+            ""text"": ""About Us""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""#333333"",
+            ""position"": ""right"",
+            ""size"": ""40px"",
+            ""alignment"": ""left"",
+            ""text"": ""Services""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""#333333"",
+            ""position"": ""far right"",
+            ""size"": ""40px"",
+            ""alignment"": ""left"",
+            ""text"": ""Contact""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""row"",
+      ""attributes"": {
+        ""color"": ""#ffffff"",
+        ""position"": ""center"",
+        ""size"": ""20%"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""column"",
+          ""attributes"": {
+            ""color"": ""#f0f0f0"",
+            ""position"": ""left"",
+            ""size"": ""50%"",
+            ""alignment"": ""left""
+          },
+          ""children"": [
+            {
+              ""type"": ""card"",
+              ""attributes"": {
+                ""color"": ""#f0f0f0"",
+                ""position"": ""top"",
+                ""size"": ""100%"",
+                ""alignment"": ""left"",
+                ""text"": ""Our Mission\nProviding quality services with a customer-centered approach.\nLearn More""
+              }
+            }
+          ]
+        },
+        {
+          ""type"": ""column"",
+          ""attributes"": {
+            ""color"": ""#f0f0f0"",
+            ""position"": ""right"",
+            ""size"": ""50%"",
+            ""alignment"": ""left""
+          },
+          ""children"": [
+            {
+              ""type"": ""card"",
+              ""attributes"": {
+                ""color"": ""#f0f0f0"",
+                ""position"": ""top"",
+                ""size"": ""100%"",
+                ""alignment"": ""left"",
+                ""text"": ""Our Vision\nBecoming a global leader in providing innovative solutions.\nOur Strategy""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      ""type"": ""row"",
+      ""attributes"": {
+        ""color"": ""#ffffff"",
+        ""position"": ""center"",
+        ""size"": ""20%"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""column"",
+          ""attributes"": {
+            ""color"": ""#f0f0f0"",
+            ""position"": ""left"",
+            ""size"": ""50%"",
+            ""alignment"": ""left""
+          },
+          ""children"": [
+            {
+              ""type"": ""card"",
+              ""attributes"": {
+                ""color"": ""#f0f0f0"",
+                ""position"": ""top"",
+                ""size"": ""100%"",
+                ""alignment"": ""left"",
+                ""text"": ""Our Team\nA group of skilled and dedicated professionals focused on success.\nMeet Our Team""
+              }
+            }
+          ]
+        },
+        {
+          ""type"": ""column"",
+          ""attributes"": {
+            ""color"": ""#f0f0f0"",
+            ""position"": ""right"",
+            ""size"": ""50%"",
+            ""alignment"": ""left""
+          },
+          ""children"": [
+            {
+              ""type"": ""card"",
+              ""attributes"": {
+                ""color"": ""#f0f0f0"",
+                ""position"": ""top"",
+                ""size"": ""100%"",
+                ""alignment"": ""left"",
+                ""text"": ""Our Projects\nTake a look at some of our successfully executed projects.\nView Projects""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      ""type"": ""footer"",
+      ""attributes"": {
+        ""color"": ""#ffffff"",
+        ""position"": ""bottom"",
+        ""size"": ""10%"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""text"",
+          ""attributes"": {
+            ""color"": ""#333333"",
+            ""position"": ""center"",
+            ""size"": ""10px"",
+            ""alignment"": ""center"",
+            ""text"": ""© Business Name 2022""
+          }
+        }
+      ]
+    }
+  ]
+}
+```",invalid_json

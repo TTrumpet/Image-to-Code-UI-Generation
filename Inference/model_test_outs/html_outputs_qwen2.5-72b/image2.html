@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recruitment Portal</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.navbar {
+display: flex;
+gap: 10px;
+margin-bottom: 20px;
+}
+.navbar button {
+padding: 10px 20px;
+border: none;
+cursor: pointer;
+}
+.navbar button:nth-child(1) {
+background-color: #007bff;
+color: white;
+}
+.navbar button:not(:first-child) {
+background-color: #333;
+color: white;
+}
+.content {
+display: flex;
+justify-content: space-between;
+width: 100%;
+max-width: 1200px;
+}
+.section {
+background-color: #f9f9f9;
+padding: 20px;
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+width: 48%;
+}
+.section h2 {
+margin-top: 0;
+}
+.section p {
+margin-bottom: 10px;
+}
+.section button {
+padding: 10px 20px;
+border: none;
+cursor: pointer;
+}
+.section button:nth-child(3) {
+background-color: #dc3545;
+color: white;
+}
+.section button:nth-child(4) {
+background-color: #ffc107;
+color: black;
+}
+.footer {
+margin-top: 20px;
+text-align: center;
+border-top: 1px solid #ddd;
+padding-top: 20px;
+width: 100%;
+max-width: 1200px;
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+<button>Home</button>
+<button>About Us</button>
+<button>Job Listings</button>
+</nav>
+<main class="content">
+<section class="section">
+<h2>Welcome</h2>
+<p>Your next career step is just a few clicks away. Start your journey with us today.</p>
+<button>Search Jobs</button>
+</section>
+<section class="section">
+<h2>About Us</h2>
+<p>We are a leading recruitment portal specializing in connecting employers and job seekers.</p>
+<button>Learn More</button>
+</section>
+<section class="section">
+<h2>Contact Us</h2>
+<p>For any inquiries or support, feel free to reach out to us.</p>
+<button>Contact Us</button>
+</section>
+</main>
+<footer class="footer">
+© Recruitment Portal 2022
+</footer>
+</body>
+</html>

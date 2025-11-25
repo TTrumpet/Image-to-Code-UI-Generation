@@ -311,6 +311,15 @@ export async function runVlmAgent(prompt: string, imagePath?: string): Promise<A
 
   if (!pythonResult.success) {
     const errorMessage = pythonResult.error ?? "The VLM agent failed without providing a reason.";
+
+    console.error("________________________________________");
+    console.error("PYTHON AGENT FAILED");
+    console.error("Error Message:", errorMessage);
+    if ('logs' in pythonResult && pythonResult.logs) {
+        console.error("Python Logs/Traceback:", pythonResult.logs);
+    }
+    console.error("________________________________________");
+
     if (shouldUseFallback(errorMessage)) {
       return fallbackMessages(prompt);
     }

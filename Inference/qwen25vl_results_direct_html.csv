@@ -1,0 +1,460 @@
+image,html_output
+3AD8509F-A870-4A05-BF80-909BED5EED6A.png,"```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Online Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin-right: 10px;
+        }
+        .hero {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .content-block {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href=""#home"">Home</a></li>
+                <li><a href=""#shop"">Shop</a></li>
+                <li><a href=""#blog"">Blog</a></li>
+                <li><a href=""#contact"">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class=""hero"">
+            <h1>Welcome to our Store</h1>
+            <p>Browse through a variety of products pulled from all corners of the world and find the perfect items that suit your taste.</p>
+            <button>Shop Now</button>
+        </section>
+
+        <div class=""content-block"">
+            <h2>Featured Product</h2>
+            <p>Uncover the exquisite collection of fashion items that stands out from the ordinary.</p>
+            <button>Explore More</button>
+        </div>
+
+        <div class=""content-block"">
+            <h2>New Arrivals</h2>
+            <p>Discover the latest additions with innovative designs and exclusive prints.</p>
+            <button>Check it out</button>
+        </div>
+
+        <div class=""content-block"">
+            <h2>Special Offers</h2>
+            <p>Get to know about exclusive deals that'll maximize your savings.</p>
+            <button>Save More</button>
+        </div>
+
+        <div class=""content-block"">
+            <h2>Contact Us</h2>
+            <p>Need to talk? Connect with us for any queries or support.</p>
+            <button>Contact Now</button>
+        </div>
+
+        <div class=""content-block"">
+            <h2>About us</h2>
+            <p>We are committed to providing you with the best shopping experience.</p>
+            <button>Learn more</button>
+        </div>
+
+        <div class=""content-block"">
+            <h2>Customer Reviews</h2>
+            <p>Read what our customers say about their experiences with us.</p>
+            <button>Read Reviews</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>© eCommerce 2022</p>
+    </footer>
+</body>
+</html>
+```"
+3C0A4C08-F7BF-42DD-A72D-4A379B66B529.png,"```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Delicious Restaurant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            background-color: #343a49;
+        }
+        nav a.active {
+            background-color: #4169e1;
+        }
+        .content-block {
+            width: 25%;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href=""#"" class=""active"">Home</a>
+            <a href=""#"">Menu</a>
+            <a href=""#"">Pre-order</a>
+            <a href=""#"">Reservation</a>
+            <a href=""#"">Contact Us</a>
+        </nav>
+    </header>
+    <main>
+        <section class=""content-block"">
+            <h2>Starters</h2>
+            <p>Treat your tastebuds with our exquisite starters that prepare you for the main course.</p>
+            <button>Explore Menu</button>
+        </section>
+        <section class=""content-block"">
+            <h2>Main Course</h2>
+            <p>Indulge in our variety of main course options - From traditional fare to fusion dishes.</p>
+            <button>Explore Menu</button>
+        </section>
+        <section class=""content-block"">
+            <h2>Desserts</h2>
+            <p>Savor our delicious desserts that will leave you craving for more.</p>
+            <button>Explore Menu</button>
+        </section>
+        <section class=""content-block"">
+            <h2>Beverages</h2>
+            <p>Quench your thirst with our refreshing and unique beverages.</p>
+            <button>Explore Menu</button>
+        </section>
+    </main>
+    <footer>
+        &copy; Delicious Restaurant 2022
+    </footer>
+</body>
+</html>
+```"
+image_139_48.png,"```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Healthy Minds</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        nav input[type=""text""] {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        nav button {
+            padding: 5px 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .hero {
+            background-color: green;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        .content-block {
+            background-color: green;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        footer {
+            background-color: #0066cc;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Healthy Minds</h1>
+    </header>
+    <nav>
+        <input type=""text"" placeholder=""Search..."">
+        <button>Book an Appointment</button>
+        <button>Contact Us</button>
+    </nav>
+    <div class=""hero"">
+        <!-- Hero content goes here -->
+    </div>
+    <div class=""content-block"">
+        <!-- Content block 1 content goes here -->
+    </div>
+    <div class=""content-block"">
+        <!-- Content block 2 content goes here -->
+    </div>
+    <footer>
+        <p>&copy; 2023 Healthy Minds. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+```"
+image_5578_23.png,"```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Car Rentals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #d0e9f0;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+        main {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .hero {
+            background-color: #d0e9f0;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+        }
+        .search-form {
+            display: flex;
+            justify-content: center;
+        }
+        .search-form input {
+            padding: 10px;
+            margin-right: 10px;
+        }
+        footer {
+            background-color: #d0d0d0;
+            color: black;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href=""#home"">HOME</a></li>
+                <li><a href=""#about"">ABOUT</a></li>
+                <li><a href=""#services"">SERVICES</a></li>
+                <li><a href=""#contact"">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class=""hero"">
+            <h1>Welcome to Car Rentals</h1>
+        </section>
+        <section class=""search-form"">
+            <input type=""text"" placeholder=""Search for car..."">
+            <button>Search</button>
+        </section>
+        <section>
+            <h2>Where to ride?</h2>
+            <p>Ride where you want, when you want.</p>
+        </section>
+        <section>
+            <h2>Pick a time</h2>
+            <p>When's the ride of a lifetime?</p>
+        </section>
+    </main>
+    <footer>
+        <p>Copyright © 2022 Car Rental Company</p>
+    </footer>
+</body>
+</html>
+```"
+image_79_37.png,"```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Social Media Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+        }
+        nav {
+            display: flex;
+            justify-content: flex-end;
+        }
+        nav a {
+            margin-left: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        main {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .hero {
+            background-color: #f9f9f9;
+            padding: 50px;
+            text-align: center;
+        }
+        .hero img {
+            max-width: 100%;
+            height: auto;
+        }
+        .content {
+            padding: 20px;
+        }
+        footer {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Social Media ManageR</h1>
+        <nav>
+            <a href=""#"">Home</a>
+            <a href=""#"">About</a>
+            <a href=""#"">Services</a>
+            <a href=""#"">Pricing</a>
+            <a href=""#"">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section class=""hero"">
+            <img src=""placeholder.jpg"" alt=""Placeholder Image"">
+            <p>Optimize Your Social Media Growth<br>Unlock the power of Social Media with our services</p>
+        </section>
+        <section class=""content"">
+            <h2>Our Services</h2>
+            <p>Boost your reach, Increase your engagement, Analyze your data</p>
+            <h2>Pricing</h2>
+            <p>Starting at just $100 per month</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Social Media ManageR</p>
+        <nav>
+            <a href=""#"">Home</a>
+            <a href=""#"">About</a>
+            <a href=""#"">Services</a>
+            <a href=""#"">Pricing</a>
+            <a href=""#"">Contact</a>
+        </nav>
+    </footer>
+</body>
+</html>
+```"

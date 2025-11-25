@@ -1,0 +1,115 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Healthcare UI</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 600px;
+    border-radius: 4px;
+  }
+  #services {
+    background-color: #add8e6;
+    width: 30%;
+    padding: 15px;
+  }
+  #services p {
+    margin: 0 0 10px 0;
+  }
+  #services input[type="search"] {
+    width: 100%;
+    max-width: 160px;
+    padding: 4px 6px;
+    font-size: 14px;
+  }
+  #social-feed {
+    background-color: gray;
+    height: 100px;
+    margin-top: 10px;
+    border-radius: 2px;
+  }
+  #testimonials {
+    background-color: #90ee90;
+    width: 30%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  #testimonials header {
+    background-color: #90ee90;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+  }
+  #testimonial-content {
+    background-color: gray;
+    height: 100px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+  #testimonial-body {
+    flex-grow: 1;
+  }
+  #articles {
+    background-color: #f08080;
+    width: 30%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  #articles header {
+    background-color: #f08080;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+  }
+  #article-content {
+    background-color: gray;
+    height: 100px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+  #article-body {
+    flex-grow: 1;
+  }
+</style>
+</head>
+<body>
+  <section id="services" aria-label="Services and treatments">
+    <h2>Services and treatments</h2>
+    <p>We offer a wide variety of services and treatments to suit your needs.</p>
+    <input type="search" placeholder="Search…" aria-label="Search services" />
+    <h3>Social Media Feed</h3>
+    <div id="social-feed" aria-label="Social media feed"></div>
+  </section>
+
+  <section id="testimonials" aria-label="Testimonials and Patient Reviews">
+    <header>
+      <h2>Testimonials and Patient Reviews</h2>
+    </header>
+    <div id="testimonial-content" aria-label="Testimonial content"></div>
+    <div id="testimonial-body"></div>
+  </section>
+
+  <section id="articles" aria-label="Healthcare-related articles">
+    <header>
+      <h2>Healthcare-related articles</h2>
+    </header>
+    <div id="article-content" aria-label="Article content"></div>
+    <div id="article-body"></div>
+  </section>
+</body>
+</html>
+```

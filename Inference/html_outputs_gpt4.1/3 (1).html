@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Services</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 2rem 0;
+    background: #fff;
+  }
+  .container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  nav {
+    margin-bottom: 2rem;
+  }
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 0.5rem;
+  }
+  nav li {
+  }
+  nav a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: #eee;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+  nav a.active,
+  nav a:hover {
+    background: #337ab7;
+    color: #fff;
+  }
+  main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap: 1rem 1rem;
+  }
+  section {
+    background: #f5f5f5;
+    border-radius: 6px;
+    padding: 1rem 1rem 1.5rem;
+  }
+  section h2 {
+    font-weight: normal;
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+  }
+  section p {
+    font-size: 0.85rem;
+    margin: 0 0 1rem 0;
+    color: #222;
+  }
+  button {
+    background-color: #4cae4c;
+    border: none;
+    border-radius: 3px;
+    padding: 0.4rem 0.8rem;
+    color: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  button.red {
+    background-color: #d9534f;
+  }
+  button.orange {
+    background-color: #f0ad4e;
+  }
+  footer {
+    margin-top: 2rem;
+    border-top: 1px solid #ccc;
+    padding: 1rem 0 0 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#" aria-current="false">Home</a></li>
+        <li><a href="#" aria-current="false">About Us</a></li>
+        <li><a href="#" class="active" aria-current="page">Services</a></li>
+        <li><a href="#" aria-current="false">Contact</a></li>
+      </ul>
+    </nav>
+    <main>
+      <section aria-labelledby="mission-title">
+        <h2 id="mission-title">Our Mission</h2>
+        <p>Providing quality services with a customer-centered approach.</p>
+        <button type="button">Learn More</button>
+      </section>
+      <section aria-labelledby="vision-title">
+        <h2 id="vision-title">Our Vision</h2>
+        <p>Becoming a global leader in providing innovative solutions.</p>
+        <button type="button" class="red">Our Strategy</button>
+      </section>
+      <section aria-labelledby="team-title">
+        <h2 id="team-title">Our Team</h2>
+        <p>A group of skilled and dedicated professionals focused on success.</p>
+        <button type="button" class="red">Meet Our Team</button>
+      </section>
+      <section aria-labelledby="projects-title">
+        <h2 id="projects-title">Our Projects</h2>
+        <p>Take a look at some of our successfully executed projects.</p>
+        <button type="button" class="orange">View Projects</button>
+      </section>
+    </main>
+    <footer>
+      <p>© Business Name 2022</p>
+    </footer>
+  </div>
+</body>
+</html>

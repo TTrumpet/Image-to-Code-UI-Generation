@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Recruitment Portal</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #fff;
+  }
+  .container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+  nav {
+    margin-bottom: 20px;
+  }
+  nav a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #333;
+    padding: 8px 14px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 14px;
+    display: inline-block;
+  }
+  nav a.active {
+    background-color: #337ab7;
+  }
+  nav a:hover:not(.active) {
+    background-color: #555;
+  }
+  section {
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+  }
+  section h2 {
+    font-size: 16px;
+    margin: 0 0 10px 0;
+  }
+  section p {
+    font-size: 13px;
+    margin: 0 0 15px 0;
+    color: #333;
+  }
+  button {
+    font-size: 13px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+  }
+  .btn-search {
+    background-color: #4cae4c;
+  }
+  .btn-learn {
+    background-color: #d9534f;
+  }
+  .btn-contact {
+    background-color: #f0ad4e;
+  }
+  .row {
+    display: flex;
+    gap: 20px;
+  }
+  .col-2 {
+    flex: 1;
+  }
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    border-top: 1px solid #bbb;
+    padding: 10px 0;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav>
+    <a href="#" class="active" aria-current="page">Home</a>
+    <a href="#">About Us</a>
+    <a href="#">Job Listings</a>
+  </nav>
+
+  <section aria-label="Welcome">
+    <h2>Welcome</h2>
+    <p>Your next career step is just a few clicks away. Start your journey with us today.</p>
+    <button class="btn-search" type="button">Search Jobs</button>
+  </section>
+
+  <div class="row">
+    <section class="col-2" aria-label="About Us">
+      <h2>About Us</h2>
+      <p>We are a leading recruitment portal specializing in connecting employers and job seekers.</p>
+      <button class="btn-learn" type="button">Learn More</button>
+    </section>
+
+    <section class="col-2" aria-label="Contact Us">
+      <h2>Contact Us</h2>
+      <p>For any inquiries or support, feel free to reach out to us.</p>
+      <button class="btn-contact" type="button">Contact Us</button>
+    </section>
+  </div>
+
+  <footer>
+    © Recruitment Portal 2022
+  </footer>
+</div>
+</body>
+</html>

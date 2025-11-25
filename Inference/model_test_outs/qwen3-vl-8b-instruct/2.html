@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recruitment Portal</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+background-color: #f4f4f4;
+color: #333;
+}
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+}
+header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 20px 0;
+border-bottom: 1px solid #ddd;
+}
+nav ul {
+list-style-type: none;
+display: flex;
+gap: 15px;
+}
+nav li {
+display: inline-block;
+}
+nav a {
+text-decoration: none;
+padding: 10px 15px;
+border-radius: 4px;
+transition: background-color 0.3s;
+}
+nav a:hover {
+background-color: #e0e0e0;
+}
+.nav-active {
+background-color: #4a90e2;
+color: white;
+}
+.main-content {
+display: flex;
+flex-direction: column;
+gap: 30px;
+margin-top: 30px;
+}
+.welcome-section {
+background-color: #f9f9f9;
+border-radius: 8px;
+padding: 20px;
+width: 100%;
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.welcome-title {
+font-size: 1.2rem;
+font-weight: bold;
+margin-bottom: 10px;
+}
+.welcome-excerpt {
+color: #666;
+margin-bottom: 20px;
+}
+.action-button {
+display: inline-block;
+padding: 8px 16px;
+background-color: #5cb85c;
+color: white;
+text-decoration: none;
+border-radius: 4px;
+transition: background-color 0.3s;
+}
+.action-button:hover {
+background-color: #4cae4c;
+}
+.info-sections {
+display: flex;
+gap: 30px;
+}
+.info-card {
+background-color: #f9f9f9;
+border-radius: 8px;
+padding: 20px;
+flex: 1;
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.info-title {
+font-size: 1.2rem;
+font-weight: bold;
+margin-bottom: 10px;
+}
+.info-excerpt {
+color: #666;
+margin-bottom: 20px;
+}
+.info-action {
+display: inline-block;
+padding: 8px 16px;
+background-color: #d9534f;
+color: white;
+text-decoration: none;
+border-radius: 4px;
+transition: background-color 0.3s;
+}
+.info-action:hover {
+background-color: #c9302c;
+}
+.footer {
+text-align: center;
+padding: 20px 0;
+border-top: 1px solid #ddd;
+margin-top: 30px;
+}
+.footer p {
+margin: 0;
+font-size: 0.9rem;
+color: #666;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Recruitment Portal</h1>
+<nav>
+<ul>
+<li><a href="#" class="nav-active">Home</a></li>
+<li><a href="#">About Us</a></li>
+<li><a href="#">Job Listings</a></li>
+</ul>
+</nav>
+</header>
+<main class="main-content">
+<section class="welcome-section">
+<h2 class="welcome-title">Welcome</h2>
+<p class="welcome-excerpt">Your next career step is just a few clicks away. Start your journey with us today.</p>
+<a href="#" class="action-button">Search Jobs</a>
+</section>
+<div class="info-sections">
+<section class="info-card">
+<h2 class="info-title">About Us</h2>
+<p class="info-excerpt">We are a leading recruitment portal specializing in connecting employers and job seekers.</p>
+<a href="#" class="info-action">Learn More</a>
+</section>
+<section class="info-card">
+<h2 class="info-title">Contact Us</h2>
+<p class="info-excerpt">For any inquiries or support, feel free to reach out to us.</p>
+<a href="#" class="info-action">Contact Us</a>
+</section>
+</div>
+</main>
+<footer class="footer">
+<p>© Recruitment Portal 2022</p>
+</footer>
+</div>
+</body>
+</html>

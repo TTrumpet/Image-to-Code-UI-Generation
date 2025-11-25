@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delicious Feast</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #faece2;
+      color: #ff471a;
+      text-align: center;
+    }
+
+    header {
+      padding: 30px 0 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      border: 1px solid #ff471a;
+      padding: 30px 20px;
+      border-radius: 6px;
+      background-color: transparent;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      background-color: #ffece4;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Delicious Feast</h1>
+  </header>
+
+  <section class="container">
+    <div class="card">Food &amp; Drink</div>
+    <div class="card">Customer Reviews</div>
+    <div class="card">Social Media</div>
+  </section>
+
+</body>
+</html>

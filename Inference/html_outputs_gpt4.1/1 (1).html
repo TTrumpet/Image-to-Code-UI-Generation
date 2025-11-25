@@ -1,0 +1,120 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blog UI</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+  .container {
+    max-width: 960px;
+    margin: 2rem auto 1rem;
+    padding: 0 1rem;
+  }
+  nav {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  nav a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: #7f9fcf;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+  nav a:hover,
+  nav a:focus {
+    color: #a9c0f5;
+  }
+  nav a.active {
+    background-color: #2a6db0;
+    color: #fff;
+  }
+  main {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  article {
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    flex: 1 1 45%;
+    box-sizing: border-box;
+    min-width: 280px;
+  }
+  article h2 {
+    font-weight: normal;
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    color: #333;
+  }
+  article p {
+    font-size: 0.85rem;
+    margin: 0 0 1rem 0;
+    color: #222;
+  }
+  button {
+    background-color: #c0392b;
+    border: none;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  article:nth-child(2) button {
+    background-color: #3a8a3a;
+  }
+  button:hover,
+  button:focus {
+    filter: brightness(85%);
+  }
+  footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <nav aria-label="Primary navigation">
+      <a href="#" aria-current="false">Home</a>
+      <a href="#" aria-current="false">About Us</a>
+      <a href="#" class="active" aria-current="page">Blog</a>
+      <a href="#" aria-current="false">Contact</a>
+    </nav>
+    <main>
+      <article>
+        <h2>Latest Post</h2>
+        <p>Get to know about the emerging trends in the tech world in our latest blog post.</p>
+        <button type="button">Read More</button>
+      </article>
+      <article>
+        <h2>Featured Post</h2>
+        <p>Check out the most popular blog post this week on AI and Machine Learning.</p>
+        <button type="button">Read More</button>
+      </article>
+    </main>
+    <footer>
+      © Tech Blog 2022
+    </footer>
+  </div>
+</body>
+</html>
+```

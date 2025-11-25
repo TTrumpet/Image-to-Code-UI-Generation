@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Name</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.navbar {
+display: flex;
+gap: 10px;
+margin-bottom: 20px;
+}
+.navbar button {
+padding: 10px 20px;
+border: none;
+cursor: pointer;
+}
+.navbar button:not(:nth-child(3)) {
+background-color: #333;
+color: white;
+}
+.navbar button:nth-child(3) {
+background-color: #007bff;
+color: white;
+}
+.content {
+display: flex;
+justify-content: space-between;
+width: 100%;
+max-width: 1200px;
+}
+.section {
+background-color: #f9f9f9;
+padding: 20px;
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+width: 48%;
+}
+.section h2 {
+margin-top: 0;
+}
+.section p {
+margin-bottom: 10px;
+}
+.section button {
+padding: 10px 20px;
+border: none;
+cursor: pointer;
+}
+.section button:nth-child(3) {
+background-color: #28a745;
+color: white;
+}
+.section button:nth-child(4) {
+background-color: #dc3545;
+color: white;
+}
+.section button:nth-child(5) {
+background-color: #ffc107;
+color: black;
+}
+.footer {
+margin-top: 20px;
+text-align: center;
+border-top: 1px solid #ddd;
+padding-top: 20px;
+width: 100%;
+max-width: 1200px;
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+<button>Home</button>
+<button>About Us</button>
+<button>Services</button>
+<button>Contact</button>
+</nav>
+<div class="content">
+<section class="section">
+<h2>Our Mission</h2>
+<p>Providing quality services with a customer-centered approach.</p>
+<button>Learn More</button>
+</section>
+<section class="section">
+<h2>Our Vision</h2>
+<p>Becoming a global leader in providing innovative solutions.</p>
+<button>Our Strategy</button>
+</section>
+</div>
+<div class="content">
+<section class="section">
+<h2>Our Team</h2>
+<p>A group of skilled and dedicated professionals focused on success.</p>
+<button>Meet Our Team</button>
+</section>
+<section class="section">
+<h2>Our Projects</h2>
+<p>Take a look at some of our successfully executed projects.</p>
+<button>View Projects</button>
+</section>
+</div>
+<footer class="footer">
+© Business Name 2022
+</footer>
+</body>
+</html>

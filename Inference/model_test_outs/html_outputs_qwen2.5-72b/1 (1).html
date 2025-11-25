@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Blog</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.navbar {
+display: flex;
+gap: 10px;
+margin-bottom: 20px;
+}
+.navbar button {
+padding: 10px 20px;
+border: none;
+cursor: pointer;
+}
+.navbar button:not(:nth-child(3)) {
+background-color: #333;
+color: white;
+}
+.navbar button:nth-child(3) {
+background-color: #007bff;
+color: white;
+}
+.content {
+display: flex;
+justify-content: space-between;
+width: 100%;
+max-width: 1200px;
+}
+.post {
+background-color: #f9f9f9;
+padding: 20px;
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+width: 48%;
+}
+.post h2 {
+margin-top: 0;
+}
+.post p {
+margin-bottom: 10px;
+}
+.post button {
+padding: 10px 20px;
+border: none;
+cursor: pointer;
+background-color: #dc3545;
+color: white;
+}
+.footer {
+margin-top: 20px;
+text-align: center;
+border-top: 1px solid #ddd;
+padding-top: 20px;
+width: 100%;
+max-width: 1200px;
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+<button>Home</button>
+<button>About Us</button>
+<button>Blog</button>
+<button>Contact</button>
+</nav>
+<div class="content">
+<div class="post">
+<h2>Latest Post</h2>
+<p>Get to know about the emerging trends in the tech world in our latest blog post.</p>
+<button>Read More</button>
+</div>
+<div class="post">
+<h2>Featured Post</h2>
+<p>Check out the most popular blog post this week on AI and Machine Learning.</p>
+<button>Read More</button>
+</div>
+</div>
+<footer class="footer">
+© Tech Blog 2022
+</footer>
+</body>
+</html>

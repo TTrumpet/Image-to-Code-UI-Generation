@@ -36,3 +36,4 @@ coverage/
 
 # Other
 temp/
+__pycache__

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthcare Layout</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #ffffff;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        padding: 20px;
+    }
+
+    section {
+        padding: 20px;
+        border-radius: 6px;
+        min-height: 90vh;
+    }
+
+    .services {
+        background: #b6dcea;
+    }
+
+    .testimonials {
+        background: #a0f49a;
+    }
+
+    .articles {
+        background: #ea8a8a;
+    }
+
+    h2 {
+        margin-top: 0;
+        font-size: 26px;
+    }
+
+    .feed {
+        margin-top: 20px;
+        background: #7a7a7a;
+        height: 140px;
+        border-radius: 4px;
+    }
+
+    input[type="text"] {
+        padding: 6px 10px;
+        margin-top: 10px;
+        border: 1px solid #999;
+        border-radius: 4px;
+    }
+</style>
+</head>
+<body>
+
+<section class="services">
+    <h2>Services and treatments</h2>
+    <p>We offer a wide variety of services and treatments to suit your needs.</p>
+    <input type="text" placeholder="Search...">
+
+    <h2>Social Media Feed</h2>
+    <div class="feed"></div>
+</section>
+
+<section class="testimonials">
+    <h2>Testimonials and Patient Reviews</h2>
+    <div class="feed"></div>
+</section>
+
+<section class="articles">
+    <h2>Healthcare-related articles</h2>
+    <div class="feed"></div>
+</section>
+
+</body>
+</html>

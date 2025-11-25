@@ -1,0 +1,1084 @@
+image,description,html_from_image,html_from_image_plus_desc
+3AD8509F-A870-4A05-BF80-909BED5EED6A.png,"The webpage wireframe is designed with a clean and organized layout, featuring several key sections that provide a comprehensive view of the site's content and functionality.
+
+### Header and Navigation Items
+- **Header**: The header contains a navigation bar with several links. The links are organized in a horizontal layout and include ""Home,"" ""Shop,"" ""Blog,"" and ""Contact."" The ""Shop"" link is highlighted, indicating it is the current page.
+- **Logo or Branding**: Although not explicitly shown, the presence of a logo or branding element is implied, typically located in the top left corner of the header.
+
+### Hero Section
+- **Text**: The hero section contains a welcoming message that reads, ""Welcome to our Store. Browse through a variety of products pulled from all corners of the world and find the perfect items that suit your taste.""
+- **Call-to-Action**: Below the welcoming message, there is a call-to-action button labeled ""Shop Now.""
+
+### Content Blocks
+- **Featured Product**
+  - **Title**: ""Featured Product""
+  - **Description**: ""Uncover the exquisite collection of fashion items that stands out from the ordinary.""
+  - **Button**: ""Explore More""
+- **New Arrivals**
+  - **Title**: ""New Arrivals""
+  - **Description**: ""Discover the latest additions with innovative designs and exclusive prints.""
+  - **Button**: ""Check it out""
+- **Special Offers**
+  - **Title**: ""Special Offers""
+  - **Description**: ""Get to know about exclusive deals that'll maximize your savings.""
+  - **Button**: ""Save More""
+- **Contact Us**
+  - **Title**: ""Contact Us""
+  - **Description**: ""Need to talk? Connect with us for any queries or support.""
+  - **Button**: ""Contact Now""
+- **About us**
+  - **Title**: ""About us""
+  - **Description**: ""We are committed to providing you with the best shopping experience.""
+  - **Button**: ""Learn more""
+- **Customer Reviews**
+  - **Title**: ""Customer Reviews""
+  - **Description**: ""Read what our customers say about their experiences with us.""
+  - **Button**: ""Read Reviews""
+
+### Footer
+- **Text**: The footer contains a copyright notice that reads, ""© eCommerce 2022.""
+
+### Design and Layout
+- The overall layout is clean and minimalistic, with a focus on providing clear and concise information through text and buttons. The use of contrasting colors for the call-to-action buttons helps to draw attention to important sections.
+- The content blocks are organized in a grid-like structure, making it easy for users to navigate and find the information they need.
+- The design is responsive, ensuring that the layout adapts well to different screen sizes and devices.
+
+This detailed description should help a designer understand the structure and purpose of each section on the webpage, facilitating the creation of a similar layout.","```html
+<!DOCTYPE html>
+<html lang=""en"">
+
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>My Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f8f8f8;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: calc(33.33% - 20px);
+            flex: 0 0 auto;
+        }
+
+        footer {
+            background-color: #f8f8f8;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href=""#"">Home</a></li>
+                <li><a href=""#"">Shop</a></li>
+                <li><a href=""#"">Blog</a></li>
+                <li><a href=""#"">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Welcome to our Store</h2>
+            <p>Browse through a variety of products pulled from all corners of the world and find the perfect items that suit your taste.</p>
+            <a href=""#"">Shop Now</a>
+        </section>
+
+        <section>
+            <h2>Featured Product</h2>
+            <p>Uncover the exquisite collection of fashion items that stands out from the ordinary.</p>
+            <a href=""#"">Explore More</a>
+        </section>
+
+        <section>
+            <h2>New Arrivals</h2>
+            <p>Discover the latest additions with innovative designs and exclusive prints.</p>
+            <a href=""#"">Check it out</a>
+        </section>
+
+        <section>
+            <h2>Special Offers</h2>
+            <p>Get to know about exclusive deals that'll maximize your savings.</p>
+            <a href=""#"">Save More</a>
+        </section>
+
+        <section>
+            <h2>Contact Us</h2>
+            <p>Need to talk? Connect with us for any queries or support.</p>
+            <a href=""#"">Contact Now</a>
+        </section>
+
+        <section>
+            <h2>About us</h2>
+            <p>We are committed to providing you with the best shopping experience.</p>
+            <a href=""#"">Learn more</a>
+        </section>
+
+        <section>
+            <h2>Customer Reviews</h2>
+            <p>Read what our customers say about their experiences with us.</p>
+            <a href=""#"">Read Reviews</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>© eCommerce 2022</p>
+    </footer>
+</body>
+
+</html>
+```","```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>My Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f2f2f2;
+            padding: 10px;
+        }
+        .nav {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+        }
+        .nav li {
+            margin: 0;
+            padding: 0;
+        }
+        .hero {
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .content-block {
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            text-align: center;
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class=""container"">
+        <div class=""header"">
+            <ul class=""nav"">
+                <li><a href=""#"">Home</a></li>
+                <li><a href=""#"">Shop</a></li>
+                <li><a href=""#"">Blog</a></li>
+                <li><a href=""#"">Contact</a></li>
+            </ul>
+        </div>
+        <div class=""hero"">
+            <h1>Welcome to our Store</h1>
+            <p>Browse through a variety of products pulled from all corners of the world and find the perfect items that suit your taste.</p>
+            <a href=""#"" class=""cta"">Shop Now</a>
+        </div>
+        <div class=""content-block"">
+            <h2>Featured Product</h2>
+            <p>Uncover the exquisite collection of fashion items that stands out from the ordinary.</p>
+            <a href=""#"" class=""cta"">Explore More</a>
+        </div>
+        <div class=""content-block"">
+            <h2>New Arrivals</h2>
+            <p>Discover the latest additions with innovative designs and exclusive prints.</p>
+            <a href=""#"" class=""cta"">Check it out</a>
+        </div>
+        <div class=""content-block"">
+            <h2>Special Offers</h2>
+            <p>Get to know about exclusive deals that'll maximize your savings.</p>
+            <a href=""#"" class=""cta"">Save More</a>
+        </div>
+        <div class=""content-block"">
+            <h2>Contact Us</h2>
+            <p>Need to talk? Connect with us for any queries or support.</p>
+            <a href=""#"" class=""cta"">Contact Now</a>
+        </div>
+        <div class=""content-block"">
+            <h2>About us</h2>
+            <p>We are committed to providing you with the best shopping experience.</p>
+            <a href=""#"" class=""cta"">Learn more</a>
+        </div>
+        <div class=""content-block"">
+            <h2>Customer Reviews</h2>
+            <p>Read what our customers say about their experiences with us.</p>
+            <a href=""#"" class=""cta"">Read Reviews</a>
+        </div>
+    </div>
+    <footer class=""footer"">
+        <p>© eCommerce 2022</p>
+    </footer>
+</body>
+</html>
+```"
+3C0A4C08-F7BF-42DD-A72D-4A379B66B529.png,"The webpage wireframe is designed with a clean and organized layout, featuring several key sections that provide a comprehensive view of the site's content and functionality.
+
+### Header and Navigation Items
+- **Header**: The header contains a navigation bar with several links. The links are organized in a horizontal layout and include:
+  - Home
+  - Menu
+  - Pre-order
+  - Reservation
+  - Contact Us
+- **Logo or Branding**: The logo or branding is not explicitly shown in the wireframe, but it is implied to be present in the header area.
+
+### Hero Section
+- **Text**: The hero section contains a brief introduction or statement about the restaurant or its offerings. The text is not detailed in the wireframe, but it is positioned prominently to capture the user's attention.
+- **Call-to-Action**: There is a call-to-action button, likely inviting users to explore the menu or make a reservation. The button is not specified in terms of color or design, but it is positioned below the hero section text.
+
+### Content Blocks
+- **Starters Section**
+  - **Title**: ""Starters""
+  - **Description**: ""Treat your tastebuds with our exquisite starters that prepare you for the main course.""
+  - **Button**: ""Explore Menu""
+- **Main Course Section**
+  - **Title**: ""Main Course""
+  - **Description**: ""Indulge in our variety of main course options - From traditional fare to fusion dishes.""
+  - **Button**: ""Explore Menu""
+- **Desserts Section**
+  - **Title**: ""Desserts""
+  - **Description**: ""Savor our delicious desserts that will leave you craving for more.""
+  - **Button**: ""Explore Menu""
+- **Beverages Section**
+  - **Title**: ""Beverages""
+  - **Description**: ""Quench your thirst with our refreshing and unique beverages.""
+  - **Button**: ""Explore Menu""
+
+### Footer Elements
+- **Text**: The footer contains a copyright statement, indicating the restaurant's name and the year. The text is ""© Delicious Restaurant 2022.""
+- **Social Media Icons**: There are placeholders for social media icons, suggesting that the footer includes links to the restaurant's social media profiles.
+- **Contact Information**: There are placeholders for contact information, indicating that the footer includes details such as the restaurant's address, phone number, and email address.
+
+### Additional Observations
+- The wireframe does not include any images or graphics, focusing solely on text and navigation elements.
+- The layout is clean and minimalistic, with a focus on providing clear and concise information about the restaurant's offerings and services.
+
+This detailed description should help a designer understand the structure and content of the webpage wireframe, enabling them to recreate the layout accurately.","```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Delicious Restaurant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f8f8f8;
+            padding: 10px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            margin: 0;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        section {
+            width: 30%;
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f8f8f8;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href=""#"">Home</a>
+            <a href=""#"">Menu</a>
+            <a href=""#"">Pre-order</a>
+            <a href=""#"">Reservation</a>
+            <a href=""#"">Contact Us</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Starters</h2>
+            <p>Treat your tastebuds with our exquisite starters that prepare you for the main course.</p>
+            <a href=""#"">Explore Menu</a>
+        </section>
+        <section>
+            <h2>Main Course</h2>
+            <p>Indulge in our variety of main course options - From traditional fare to fusion dishes.</p>
+            <a href=""#"">Explore Menu</a>
+        </section>
+        <section>
+            <h2>Desserts</h2>
+            <p>Savor our delicious desserts that will leave you craving for more.</p>
+            <a href=""#"">Explore Menu</a>
+        </section>
+        <section>
+            <h2>Beverages</h2>
+            <p>Quench your thirst with our refreshing and unique beverages.</p>
+            <a href=""#"">Explore Menu</a>
+        </section>
+    </main>
+    <footer>
+        <p>© Delicious Restaurant 2022</p>
+    </footer>
+</body>
+</html>
+```","```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Delicious Restaurant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+        .nav {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav li {
+            margin-right: 10px;
+            padding: 10px;
+            background-color: #555;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .hero {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .content-block {
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class=""container"">
+        <div class=""header"">
+            <nav class=""nav"">
+                <li>Home</li>
+                <li>Menu</li>
+                <li>Pre-order</li>
+                <li>Reservation</li>
+                <li>Contact Us</li>
+            </nav>
+        </div>
+        <div class=""hero"">
+            <h1>Welcome to Delicious Restaurant</h1>
+            <p>Indulge in our delicious cuisine and exceptional service.</p>
+            <button>Explore Menu</button>
+        </div>
+        <div class=""content-block"">
+            <h2>Starters</h2>
+            <p>Treat your tastebuds with our exquisite starters that prepare you for the main course.</p>
+            <button>Explore Menu</button>
+        </div>
+        <div class=""content-block"">
+            <h2>Main Course</h2>
+            <p>Indulge in our variety of main course options - From traditional fare to fusion dishes.</p>
+            <button>Explore Menu</button>
+        </div>
+        <div class=""content-block"">
+            <h2>Desserts</h2>
+            <p>Savor our delicious desserts that will leave you craving for more.</p>
+            <button>Explore Menu</button>
+        </div>
+        <div class=""content-block"">
+            <h2>Beverages</h2>
+            <p>Quench your thirst with our refreshing and unique beverages.</p>
+            <button>Explore Menu</button>
+        </div>
+    </div>
+    <footer class=""footer"">
+        <p>© Delicious Restaurant 2022</p>
+        <div class=""social-media"">
+            <a href=""#"">Facebook</a>
+            <a href=""#"">Instagram</a>
+            <a href=""#"">Twitter</a>
+        </div>
+        <div class=""contact"">
+            <p>Address: 123 Restaurant Street</p>
+            <p>Phone: 555-1234</p>
+            <p>Email: info@deliciousrestaurant.com</p>
+        </div>
+    </footer>
+</body>
+</html>
+```"
+image_139_48.png,"The webpage wireframe is designed with a clear and structured layout, featuring several key sections. Here is a detailed description of each section:
+
+### Header and Navigation Items
+- **Header Section**: The header contains the website's name, ""Healthy Minds,"" prominently displayed in the center. Below the name, there is a search bar with the placeholder text ""Search..."" and two buttons: ""Book an Appointment"" and ""Contact Us."" The header is set against a blue background, creating a contrast that draws attention to the text and buttons.
+
+### Hero Section
+- **Hero Section**: This section is a large green rectangle that spans the width of the page. It serves as a visual focal point and likely contains a call-to-action or a featured image. The green color is used to grab attention and create a sense of importance for the content within this section.
+
+### Content Blocks
+- **First Content Block**: This block is another green rectangle, similar in size to the hero section. It contains a title and a description, but the specific details of the content are not provided in the wireframe. The block is designed to provide additional information or services related to the website's purpose.
+
+- **Second Content Block**: This block is also a green rectangle, identical in size to the previous blocks. It follows the same design pattern, with a title and description. This block likely offers more detailed information or services, maintaining consistency in the website's design.
+
+### Footer Elements
+- **Footer Section**: The footer is a green rectangle that spans the width of the page, similar to the other content blocks. It is likely to contain links to additional pages, a copyright notice, or other important information about the website. The footer's design matches the other sections, ensuring a cohesive look and feel throughout the website.
+
+Overall, the webpage wireframe is designed with a consistent color scheme and layout, using green rectangles to create a visually appealing and organized structure. The use of buttons and a search bar in the header provides easy navigation and access to important features.","```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Healthy Minds</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007474;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+        section {
+            width: 100%;
+            background-color: #007474;
+            color: white;
+            padding: 2rem;
+            margin-bottom: 1rem;
+        }
+        footer {
+            background-color: #007474;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Healthy Minds</h1>
+        <form>
+            <input type=""text"" placeholder=""Search..."">
+        </form>
+        <nav>
+            <button>Book an Appointment</button>
+            <button>Contact Us</button>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Welcome to Healthy Minds</h2>
+            <p>At Healthy Minds, we are dedicated to providing the best mental health services to our clients. Our team of experienced therapists and counselors are here to help you.</p>
+        </section>
+        <section>
+            <h2>Our Services</h2>
+            <p>We offer a range of services including individual therapy, couples counseling, and group therapy. Our goal is to help you achieve your mental health goals.</p>
+        </section>
+        <section>
+            <h2>Testimonials</h2>
+            <p>""I have been going to Healthy Minds for a few months now and I have seen a significant improvement in my mental health. The therapists are knowledgeable and supportive. Highly recommend!"" - John Doe</p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2023 Healthy Minds. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+```","```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Healthy Minds</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #0074D9;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        .hero {
+            background-color: #3CB371;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .content-block {
+            background-color: #3CB371;
+            color: white;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .footer {
+            background-color: #3CB371;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .search-bar input {
+            width: 200px;
+            padding: 0.5rem;
+            border: 1px solid #0074D9;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        .search-bar button {
+            padding: 0.5rem 1rem;
+            background-color: #0074D9;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .content-block button {
+            padding: 0.5rem 1rem;
+            background-color: #0074D9;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class=""header"">
+        <h1>Healthy Minds</h1>
+        <div class=""search-bar"">
+            <input type=""text"" placeholder=""Search..."">
+            <button>Search</button>
+            <button>Book an Appointment</button>
+            <button>Contact Us</button>
+        </div>
+    </header>
+    <section class=""hero"">
+        <h2>Welcome to Healthy Minds</h2>
+        <p>Experience the benefits of a healthy mind with our expert services.</p>
+    </section>
+    <section class=""content-block"">
+        <h2>Services</h2>
+        <p>Explore our comprehensive range of mental health services.</p>
+    </section>
+    <section class=""content-block"">
+        <h2>Testimonials</h2>
+        <p> Hear from our satisfied clients about their positive experiences.</p>
+    </section>
+    <footer class=""footer"">
+        <p>© 2023 Healthy Minds. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+```"
+image_5578_23.png,"The webpage wireframe is designed with a clean and straightforward layout, featuring several key sections that provide a clear user experience. Here is a detailed description of each section:
+
+### Header and Navigation Items
+- **Header**: The top section of the page includes a navigation bar with the following items:
+  - **HOME**: This is the first item in the navigation bar, indicating the home page of the website.
+  - **ABOUT**: The second item, likely providing information about the company or service.
+  - **SERVICES**: The third item, suggesting a section dedicated to the services offered.
+  - **CONTACT**: The fourth item, likely leading to a contact page or form.
+
+### Hero Section
+- **Hero Section Text**: The main text in the hero section reads, ""Welcome to Car Rentals,"" indicating the purpose of the website.
+- **Call-to-Action**: There is a search bar with a placeholder text ""Search for car..."" and a button labeled ""Search,"" which is designed to allow users to search for available cars.
+
+### Content Blocks
+- **Where to ride?**
+  - **Title**: ""Where to ride?""
+  - **Description**: ""Ride where you want, when you want."" This section emphasizes the flexibility of the car rental service.
+- **Pick a time**
+  - **Title**: ""Pick a time""
+  - **Description**: ""When's the ride of a lifetime?"" This section encourages users to choose their rental time, suggesting a special or memorable experience.
+
+### Footer
+- **Footer Elements**: The footer contains the copyright information, ""Copyright © 2022 Car Rental Company,"" indicating the legal ownership and year of the website.
+
+### Design Elements
+- **Color Scheme**: The color scheme includes a light blue background for the hero section and a white background for the rest of the page, creating a clean and modern look.
+- **Typography**: The text is clear and easy to read, with a mix of headings and body text to differentiate sections and provide information.
+
+This wireframe effectively communicates the main features and benefits of the car rental service, guiding users through a simple and intuitive user experience.","```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Car Rental Company</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #e6f5fa;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+        }
+        nav a {
+            color: #000;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+        main {
+            padding: 2rem;
+        }
+        section {
+            margin-bottom: 2rem;
+        }
+        footer {
+            background-color: #d9d9d9;
+            padding: 1rem;
+            text-align: center;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href=""#"">Home</a>
+            <a href=""#"">About</a>
+            <a href=""#"">Services</a>
+            <a href=""#"">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h1>Welcome to Car Rentals</h1>
+            <p>Where to ride?</p>
+            <p>Ride where you want, when you want.</p>
+        </section>
+        <section>
+            <h1>Pick a time</h1>
+            <p>When's the ride of a lifetime?</p>
+        </section>
+    </main>
+    <footer>
+        <p>Copyright © 2022 Car Rental Company</p>
+    </footer>
+</body>
+</html>
+```","```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Car Rental Company</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f8f9fa;
+            padding: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        main {
+            padding: 20px;
+        }
+        .hero-section {
+            background-color: #e9f0f5;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .hero-section h1 {
+            color: #343a40;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .hero-section form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero-section form input {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .hero-section form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .content-blocks {
+            margin-top: 50px;
+        }
+        .content-blocks h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .content-blocks p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href=""#"">HOME</a>
+            <a href=""#"">ABOUT</a>
+            <a href=""#"">SERVICES</a>
+            <a href=""#"">CONTACT</a>
+        </nav>
+    </header>
+    <main>
+        <section class=""hero-section"">
+            <h1>Welcome to Car Rentals</h1>
+            <form>
+                <input type=""text"" placeholder=""Search for car..."">
+                <button type=""submit"">Search</button>
+            </form>
+        </section>
+        <section class=""content-blocks"">
+            <h2>Where to ride?</h2>
+            <p>Ride where you want, when you want.</p>
+            <h2>Pick a time</h2>
+            <p>When's the ride of a lifetime?</p>
+        </section>
+    </main>
+    <footer>
+        <p>Copyright © 2022 Car Rental Company</p>
+    </footer>
+</body>
+</html>
+```"
+image_79_37.png,"The webpage wireframe is structured with a clear and organized layout. Here is a detailed description of each section:
+
+### Header and Navigation Items
+- **Header**: The header contains the website's name, ""Social Media ManageR,"" prominently displayed in a large font.
+- **Navigation Items**: Below the header, there is a navigation bar with links to different sections of the website. The links are:
+  - Home
+  - About
+  - Services
+  - Pricing
+  - Contact
+
+### Hero Section
+- **Text**: The hero section features a large, bolded title that reads, ""Optimize Your Social Media Growth."" Below the title, there is a subtitle that says, ""Unlock the power of Social Media with our services.""
+- **Image**: There is a placeholder image on the right side of the hero section, which is currently gray and empty.
+
+### Content Blocks
+- **Our Services**: This section has a title, ""Our Services,"" followed by a description that reads, ""Boost your reach, Increase your engagement, Analyze your data."" There is no additional content or buttons in this section.
+- **Pricing**: This section has a title, ""Pricing,"" followed by a description that reads, ""Starting at just $100 per month."" There is no additional content or buttons in this section.
+
+### Footer
+- **Footer Elements**: The footer contains the website's copyright information, ""© 2023 Social Media ManageR,"" and a navigation bar with links to different sections of the website. The links are:
+  - Home
+  - About
+  - Services
+  - Pricing
+  - Contact
+
+### Overall Layout
+The layout is clean and straightforward, with a clear distinction between the header, hero section, content blocks, and footer. The use of bolded titles and subtitles helps to guide the user through the different sections of the website. The placeholder image in the hero section suggests that this area is intended for a more dynamic image or video, which could be used to further engage the user.","```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Social Media ManageR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f8f8f8;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        footer {
+            background-color: #f8f8f8;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Social Media ManageR</h1>
+    </header>
+    <nav>
+        <a href=""#"">Home</a>
+        <a href=""#"">About</a>
+        <a href=""#"">Services</a>
+        <a href=""#"">Pricing</a>
+        <a href=""#"">Contact</a>
+    </nav>
+    <main>
+        <section>
+            <h2>Optimize Your Social Media Growth</h2>
+            <p>Unlock the power of Social Media with our services</p>
+        </section>
+        <section>
+            <h2>Our Services</h2>
+            <p>Boost your reach, Increase your engagement, Analyze your data</p>
+        </section>
+        <section>
+            <h2>Pricing</h2>
+            <p>Starting at just $100 per month</p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2023 Social Media ManageR</p>
+    </footer>
+</body>
+</html>
+```","```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Social Media ManageR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f8f8f8;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        section h2 {
+            margin-top: 0;
+        }
+        section p {
+            margin: 10px 0;
+        }
+        footer {
+            background-color: #f8f8f8;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Social Media ManageR</h1>
+    </header>
+    <nav>
+        <a href=""#"">Home</a>
+        <a href=""#"">About</a>
+        <a href=""#"">Services</a>
+        <a href=""#"">Pricing</a>
+        <a href=""#"">Contact</a>
+    </nav>
+    <main>
+        <section>
+            <h2>Hero Section</h2>
+            <p>Optimize Your Social Media Growth</p>
+            <p>Unlock the power of Social Media with our services</p>
+            <img src=""hero-image.jpg"" alt=""Hero Image"">
+        </section>
+        <section>
+            <h2>Our Services</h2>
+            <p>Boost your reach, Increase your engagement, Analyze your data</p>
+        </section>
+        <section>
+            <h2>Pricing</h2>
+            <p>Starting at just $100 per month</p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2023 Social Media ManageR</p>
+        <nav>
+            <a href=""#"">Home</a>
+            <a href=""#"">About</a>
+            <a href=""#"">Services</a>
+            <a href=""#"">Pricing</a>
+            <a href=""#"">Contact</a>
+        </nav>
+    </footer>
+</body>
+</html>
+```"

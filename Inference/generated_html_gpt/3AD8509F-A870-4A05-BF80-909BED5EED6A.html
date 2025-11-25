@@ -1,0 +1,150 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCommerce Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        nav a.active {
+            background-color: #007bff;
+        }
+        main {
+            padding: 20px;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .hero h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .cta-button {
+            background-color: #ffc107;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cta-button:hover {
+            background-color: #e0a800;
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            flex: 1 1 calc(30% - 20px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: #333;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                flex: 1 1 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to our Store</h1>
+        <nav>
+            <a href="#" class="active">Home</a>
+            <a href="#">Shop</a>
+            <a href="#">Blog</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Welcome to our Store</h1>
+            <p>Browse through a variety of products pulled from all corners of the world and find the perfect items that suit your taste.</p>
+            <button class="cta-button">Shop Now</button>
+        </section>
+        <section class="cards">
+            <article class="card">
+                <h3>Featured Product</h3>
+                <p>Uncover the exquisite collection of fashion items that stands out from the ordinary.</p>
+                <button class="cta-button">Explore More</button>
+            </article>
+            <article class="card">
+                <h3>New Arrivals</h3>
+                <p>Discover the latest additions with innovative designs and exclusive prints.</p>
+                <button class="cta-button">Check it out</button>
+            </article>
+            <article class="card">
+                <h3>Special Offers</h3>
+                <p>Get to know about exclusive deals that'll maximize your savings.</p>
+                <button class="cta-button">Save More</button>
+            </article>
+            <article class="card">
+                <h3>Customer Reviews</h3>
+                <p>Read what our customers say about their experiences with us.</p>
+                <button class="cta-button">Read Reviews</button>
+            </article>
+            <article class="card">
+                <h3>About Us</h3>
+                <p>We are committed to providing you with the best shopping experience.</p>
+                <button class="cta-button">Learn more</button>
+            </article>
+            <article class="card">
+                <h3>Contact Us</h3>
+                <p>Need to talk? Connect with us for any queries or support.</p>
+                <button class="cta-button">Contact Now</button>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <p>© eCommerce 2022</p>
+    </footer>
+</body>
+</html>
+```

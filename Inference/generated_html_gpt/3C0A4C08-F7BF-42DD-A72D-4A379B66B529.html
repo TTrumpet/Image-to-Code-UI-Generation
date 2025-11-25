@@ -1,0 +1,72 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Restaurant</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        header { background-color: #333; color: white; padding: 10px 20px; text-align: center; }
+        nav { margin: 10px 0; }
+        nav a { color: white; margin: 0 10px; text-decoration: none; }
+        main { padding: 20px; }
+        .hero { text-align: center; }
+        .card-container { display: flex; flex-wrap: wrap; justify-content: space-between; }
+        .card { border: 1px solid #ddd; border-radius: 5px; margin: 10px; padding: 20px; flex: 1 1 calc(25% - 40px); box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); }
+        .card h3 { margin-top: 0; }
+        .button { padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; }
+        .explore { background-color: #ff8c00; color: white; }
+        .footer { text-align: center; padding: 20px; background-color: #f8f8f8; margin-top: 20px; }
+        @media (max-width: 768px) {
+            .card { flex: 1 1 calc(50% - 40px); }
+        }
+        @media (max-width: 480px) {
+            .card { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Delicious Restaurant</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Menu</a>
+            <a href="#">Pre-order</a>
+            <a href="#" style="background-color: blue; color: white;">Reservation</a>
+            <a href="#">Contact Us</a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h2>Welcome to Delicious Restaurant</h2>
+        </section>
+        <section class="card-container">
+            <article class="card">
+                <h3>Starters</h3>
+                <p>Treat your tastebuds with our exquisite starters that prepare you for the main course.</p>
+                <button class="button explore">Explore Menu</button>
+            </article>
+            <article class="card">
+                <h3>Main Course</h3>
+                <p>Indulge in our variety of main course options - From traditional fare to fusion dishes.</p>
+                <button class="button explore">Explore Menu</button>
+            </article>
+            <article class="card">
+                <h3>Desserts</h3>
+                <p>Savor our delicious desserts that will leave you craving for more.</p>
+                <button class="button explore">Explore Menu</button>
+            </article>
+            <article class="card">
+                <h3>Beverages</h3>
+                <p>Quench your thirst with our refreshing and unique beverages.</p>
+                <button class="button explore">Explore Menu</button>
+            </article>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>© Delicious Restaurant 2022</p>
+    </footer>
+</body>
+</html>
+```

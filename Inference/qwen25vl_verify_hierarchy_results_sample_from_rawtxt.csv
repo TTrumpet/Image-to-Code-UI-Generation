@@ -1,0 +1,296 @@
+raw_file,image_file,status,html_file,raw_output
+1_raw.txt,1.png,success,outputs_html_verify_sample_25\1__verify.html,"```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Tech Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: white;
+            color: black;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .nav button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .nav button:hover {
+            background-color: #333;
+        }
+        .section {
+            padding: 20px;
+            margin-top: 60px;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .column {
+            flex: 1;
+            padding: 10px;
+        }
+        .card {
+            background-color: gray;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+            color: black;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class=""header"">
+        <div class=""nav"">
+            <button>Home</button>
+            <button>About Us</button>
+            <button style=""background-color: blue;"">Blog</button>
+            <button>Contact</button>
+        </div>
+    </div>
+    <div class=""section"">
+        <div class=""row"">
+            <div class=""column"">
+                <h2>Latest Post</h2>
+                <p>Get to know about the emerging trends in the tech world in our latest blog post.</p>
+                <button style=""background-color: red;"">Read More</button>
+            </div>
+            <div class=""column"">
+                <h2>Featured Post</h2>
+                <p>Check out the most popular blog post this week on AI and Machine Learning.</p>
+                <button style=""background-color: green;"">Read More</button>
+            </div>
+        </div>
+    </div>
+    <div class=""footer"">
+        &copy; Tech Blog 2022
+    </div>
+</body>
+</html>
+```"
+2_raw.txt,2.png,success,outputs_html_verify_sample_25\2__verify.html,"```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Recruitment Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            background-color: #3498db;
+        }
+        nav button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        nav button:hover {
+            background-color: #2980b9;
+        }
+        .hero {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+        .hero button {
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .hero button:hover {
+            background-color: #2980b9;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        .column {
+            flex: 1;
+            padding: 20px;
+        }
+        .column section {
+            margin-bottom: 10px;
+        }
+        .footer {
+            background-color: #f2f2f2;
+            color: #34495e;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .footer .copyright {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <button>Home</button>
+            <button>About Us</button>
+            <button>Job Listings</button>
+        </nav>
+    </header>
+    <div class=""hero"">
+        <section>Welcome</section>
+        <p>Your next career step is just a few clicks away. Start your journey with us today.</p>
+        <button>Search Jobs</button>
+    </div>
+    <div class=""row"">
+        <div class=""column"">
+            <section>About Us</section>
+            <p>We are a leading recruitment portal specializing in connecting employers and job seekers.</p>
+            <button>Learn More</button>
+        </div>
+        <div class=""column"">
+            <section>Contact Us</section>
+            <p>For any inquiries or support, feel free to reach out to us.</p>
+            <button>Contact Us</button>
+        </div>
+    </div>
+    <footer class=""footer"">
+        <p class=""copyright"">© Recruitment Portal 2022</p>
+    </footer>
+</body>
+</html>
+```"
+3_raw.txt,3.png,success,outputs_html_verify_sample_25\3__verify.html,"```html
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Business Name</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .nav {
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .card {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .footer {
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class=""header"">
+        <!-- Header content -->
+    </div>
+    <div class=""nav"">
+        <button class=""nav-item"">Home</button>
+        <button class=""nav-item"">About Us</button>
+        <button class=""nav-item"">Services</button>
+        <button class=""nav-item"">Contact</button>
+    </div>
+    <div class=""row"">
+        <div class=""column"">
+            <div class=""card"">
+                <h2>Our Mission</h2>
+                <p>Providing quality services with a customer-centered approach.</p>
+                <button class=""learn-more"">Learn More</button>
+            </div>
+        </div>
+        <div class=""column"">
+            <div class=""card"">
+                <h2>Our Vision</h2>
+                <p>Becoming a global leader in providing innovative solutions.</p>
+                <button class=""our-strategy"">Our Strategy</button>
+            </div>
+        </div>
+    </div>
+    <div class=""row"">
+        <div class=""column"">
+            <div class=""card"">
+                <h2>Our Team</h2>
+                <p>A group of skilled and dedicated professionals focused on success.</p>
+                <button class=""meet-team"">Meet Our Team</button>
+            </div>
+        </div>
+        <div class=""column"">
+            <div class=""card"">
+                <h2>Our Projects</h2>
+                <p>Take a look at some of our successfully executed projects.</p>
+                <button class=""view-projects"">View Projects</button>
+            </div>
+        </div>
+    </div>
+    <div class=""footer"">
+        <p>&copy; Business Name 2022</p>
+    </div>
+</body>
+</html>
+```"

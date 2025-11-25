@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recruitment Portal</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #fafafa;
+        color: #333;
+    }
+
+    header {
+        background: #222;
+        padding: 15px 0;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        gap: 20px;
+    }
+
+    nav ul li a {
+        color: #eee;
+        text-decoration: none;
+        padding: 8px 16px;
+        background: #333;
+        border-radius: 4px;
+        transition: 0.2s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+        background: #007bff;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding: 0 20px;
+    }
+
+    .card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+        margin-top: 0;
+        font-size: 18px;
+    }
+
+    .btn {
+        margin-top: 10px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #fff;
+    }
+
+    .btn.green { background: #5cb85c; }
+    .btn.red { background: #d9534f; }
+    .btn.orange { background: #f0ad4e; }
+
+    .grid-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px 0;
+        font-size: 14px;
+        color: #777;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Job Listings</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="container">
+    <div class="card">
+        <h2>Welcome</h2>
+        <p>Your next career step is just a few clicks away. Start your journey with us today.</p>
+        <button class="btn green">Search Jobs</button>
+    </div>
+
+    <div class="grid-two">
+        <div class="card">
+            <h2>About Us</h2>
+            <p>We are a leading recruitment portal specializing in connecting employers and job seekers.</p>
+            <button class="btn red">Learn More</button>
+        </div>
+
+        <div class="card">
+            <h2>Contact Us</h2>
+            <p>For any inquiries or support, feel free to reach out to us.</p>
+            <button class="btn orange">Contact Us</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © Recruitment Portal 2022
+</footer>
+
+</body>
+</html>

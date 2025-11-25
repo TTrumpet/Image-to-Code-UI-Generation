@@ -1,0 +1,942 @@
+image,raw_output,status
+3AD8509F-A870-4A05-BF80-909BED5EED6A.png,"system
+You are a helpful assistant.
+user
+You are an expert UI layout analyzer. Analyze this wireframe and output all visible components in a hierarchical JSON structure.
+
+Each component should be represented as an object with:
+- 'type': the component name (e.g., header, nav, hero, button, image, card, footer)
+- 'attributes': a dictionary with attributes like color, position, size, alignment, and text content if visible
+- 'children': a list of nested components inside it
+
+The root node should represent the full page as 'page'.
+Follow the visual hierarchy (top to bottom, left to right). Output valid JSON only—no text outside the JSON.
+assistant
+```json
+{
+  ""type"": ""page"",
+  ""attributes"": {
+    ""color"": ""white"",
+    ""position"": ""center"",
+    ""size"": ""large"",
+    ""alignment"": ""center""
+  },
+  ""children"": [
+    {
+      ""type"": ""header"",
+      ""attributes"": {
+        ""color"": ""black"",
+        ""position"": ""top"",
+        ""size"": ""small"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""nav"",
+          ""attributes"": {
+            ""color"": ""black"",
+            ""position"": ""top"",
+            ""size"": ""small"",
+            ""alignment"": ""center""
+          },
+          ""children"": [
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""top"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""Home""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""blue"",
+                ""position"": ""top"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""Shop""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""top"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""Blog""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""top"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""Contact""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      ""type"": ""hero"",
+      ""attributes"": {
+        ""color"": ""gray"",
+        ""position"": ""center"",
+        ""size"": ""medium"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""text"",
+          ""attributes"": {
+            ""color"": ""black"",
+            ""position"": ""center"",
+            ""size"": ""medium"",
+            ""alignment"": ""center"",
+            ""text_content"": ""Welcome to our Store""
+          }
+        },
+        {
+          ""type"": ""text"",
+          ""attributes"": {
+            ""color"": ""black"",
+            ""position"": ""center"",
+            ""size"": ""small"",
+            ""alignment"": ""center"",
+            ""text_content"": ""Browse through a variety of products pulled from all corners of the world and find the perfect items that suit your taste.""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""orange"",
+            ""position"": ""center"",
+            ""size"": ""small"",
+            ""alignment"": ""center"",
+            ""text_content"": ""Shop Now""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""cards"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""center"",
+        ""size"": ""small"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""white"",
+            ""position"": ""left"",
+            ""size"": ""small"",
+            ""alignment"": ""left""
+          },
+          ""children"": [
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""left"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""Featured Product""
+              }
+            },
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""left"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""Uncover the exquisite collection of fashion items that stands out from the ordinary.""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""orange"",
+                ""position"": ""left"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""Explore More""
+              }
+            }
+          ]
+        },
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""white"",
+            ""position"": ""center"",
+            ""size"": ""small"",
+            ""alignment"": ""center""
+          },
+          ""children"": [
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""center"",
+                ""size"": ""small"",
+                ""alignment"": ""center"",
+                ""text_content"": ""New Arrivals""
+              }
+            },
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""center"",
+                ""size"": ""small"",
+                ""alignment"": ""center"",
+                ""text_content"": ""Discover the latest additions with innovative designs and exclusive prints.""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""red"",
+                ""position"": ""center"",
+                ""size"": ""small"",
+                ""alignment"": ""center"",
+                ""text_content"": ""Check it out""
+              }
+            }
+          ]
+        },
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""white"",
+            ""position"": ""right"",
+            ""size"": ""small"",
+            ""alignment"": ""right""
+          },
+          ""children"": [
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""right"",
+                ""size"": ""small"",
+                ""alignment"": ""right"",
+                ""text_content"": ""Special Offers""
+              }
+            },
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""right"",
+                ""size"": ""small"",
+                ""alignment"": ""right"",
+                ""text_content"": ""Get to know about exclusive deals that'll maximize your savings.""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""red"",
+                ""position"": ""right"",
+                ""size"": ""small"",
+                ""alignment"": ""right"",
+                ""text_content"": ""Save More""
+              }
+            }
+          ]
+        },
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""white"",
+            ""position"": ""right"",
+            ""size"": ""small"",
+            ""alignment"": ""right""
+          },
+          ""children"": [
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""right"",
+                ""size"": ""small"",
+                ""alignment"": ""right"",
+                ""text_content"": ""Contact Us""
+              }
+            },
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""right"",
+                ""size"": ""small"",
+                ""alignment"": ""right"",
+                ""text_content"": ""Need to talk? Connect with us for any queries or support.""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""orange"",
+                ""position"": ""right"",
+                ""size"": ""small"",
+                ""alignment"": ""right"",
+                ""text_content"": ""Contact Now""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      ""type"": ""cards"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""center"",
+        ""size"": ""small"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""white"",
+            ""position"": ""left"",
+            ""size"": ""small"",
+            ""alignment"": ""left""
+          },
+          ""children"": [
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""left"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""About us""
+              }
+            },
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""left"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""We are committed to providing you with the best shopping experience.""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""red"",
+                ""position"": ""left"",
+                ""size"": ""small"",
+                ""alignment"": ""left"",
+                ""text_content"": ""Learn more""
+              }
+            }
+          ]
+        },
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""white"",
+            ""position"": ""right"",
+            ""size"": ""small"",
+            ""alignment"": ""right""
+          },
+          ""children"": [
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""right"",
+                ""size"": ""small"",
+                ""alignment"": ""right"",
+                ""text_content"": ""Customer Reviews""
+              }
+            },
+            {
+              ""type"": ""text"",
+              ""attributes"": {
+                ""color"": ""black"",
+                ""position"": ""right"",
+                ""size"": ""small"",
+                ""alignment"": ""right"",
+                ""text_content"": ""Read what our customers say about their experiences with us.""
+              }
+            },
+            {
+              ""type"": ""button"",
+              ""attributes"": {
+                ""color"": ""orange"",
+                ""position"": ""right"",
+                ""size"": ""small"",
+                ""alignment"": ""right"",
+                ""text_content"": ""Read Reviews""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      ""type"": ""footer"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""bottom"",
+        ""size"": ""small"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""text"",
+          ""attributes"": {
+            ""color"": ""black"",
+            ""position"": ""bottom"",
+            ""size"": ""small"",
+            ""alignment"": ""center"",
+            ""text_content"": ""© eCommerce 2022""
+          }
+        }
+      ]
+    }
+  ]
+}
+```",invalid_json
+3C0A4C08-F7BF-42DD-A72D-4A379B66B529.png,"system
+You are a helpful assistant.
+user
+You are an expert UI layout analyzer. Analyze this wireframe and output all visible components in a hierarchical JSON structure.
+
+Each component should be represented as an object with:
+- 'type': the component name (e.g., header, nav, hero, button, image, card, footer)
+- 'attributes': a dictionary with attributes like color, position, size, alignment, and text content if visible
+- 'children': a list of nested components inside it
+
+The root node should represent the full page as 'page'.
+Follow the visual hierarchy (top to bottom, left to right). Output valid JSON only—no text outside the JSON.
+assistant
+```json
+{
+  ""type"": ""page"",
+  ""attributes"": {
+    ""color"": ""white"",
+    ""position"": ""center"",
+    ""size"": ""large"",
+    ""alignment"": ""center""
+  },
+  ""children"": [
+    {
+      ""type"": ""nav"",
+      ""attributes"": {
+        ""color"": ""black"",
+        ""position"": ""top"",
+        ""size"": ""small"",
+        ""alignment"": ""center"",
+        ""text_content"": [""Home"", ""Menu"", ""Pre-order"", ""Reservation"", ""Contact Us""]
+      },
+      ""children"": []
+    },
+    {
+      ""type"": ""hero"",
+      ""attributes"": {
+        ""color"": ""transparent"",
+        ""position"": ""center"",
+        ""size"": ""medium"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""lightgray"",
+            ""position"": ""left"",
+            ""size"": ""small"",
+            ""alignment"": ""left"",
+            ""text_content"": [""Starters"", ""Treat your tastebuds with our exquisite starters that prepare you for the main course."", ""Explore Menu""]
+          },
+          ""children"": []
+        },
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""lightgray"",
+            ""position"": ""center"",
+            ""size"": ""small"",
+            ""alignment"": ""center"",
+            ""text_content"": [""Main Course"", ""Indulge in our variety of main course options - From traditional fare to fusion dishes."", ""Explore Menu""]
+          },
+          ""children"": []
+        },
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""lightgray"",
+            ""position"": ""right"",
+            ""size"": ""small"",
+            ""alignment"": ""right"",
+            ""text_content"": [""Desserts"", ""Savor our delicious desserts that will leave you craving for more."", ""Explore Menu""]
+          },
+          ""children"": []
+        },
+        {
+          ""type"": ""card"",
+          ""attributes"": {
+            ""color"": ""lightgray"",
+            ""position"": ""far-right"",
+            ""size"": ""small"",
+            ""alignment"": ""right"",
+            ""text_content"": [""Beverages"", ""Quench your thirst with our refreshing and unique beverages."", ""Explore Menu""]
+          },
+          ""children"": []
+        }
+      ]
+    },
+    {
+      ""type"": ""footer"",
+      ""attributes"": {
+        ""color"": ""transparent"",
+        ""position"": ""bottom"",
+        ""size"": ""small"",
+        ""alignment"": ""center"",
+        ""text_content"": [""© Delicious Restaurant 2022""]
+      },
+      ""children"": []
+    }
+  ]
+}
+```",invalid_json
+image_139_48.png,"system
+You are a helpful assistant.
+user
+You are an expert UI layout analyzer. Analyze this wireframe and output all visible components in a hierarchical JSON structure.
+
+Each component should be represented as an object with:
+- 'type': the component name (e.g., header, nav, hero, button, image, card, footer)
+- 'attributes': a dictionary with attributes like color, position, size, alignment, and text content if visible
+- 'children': a list of nested components inside it
+
+The root node should represent the full page as 'page'.
+Follow the visual hierarchy (top to bottom, left to right). Output valid JSON only—no text outside the JSON.
+assistant
+```json
+{
+  ""type"": ""page"",
+  ""attributes"": {
+    ""color"": ""#0066cc"",
+    ""position"": ""top"",
+    ""size"": ""large"",
+    ""alignment"": ""center""
+  },
+  ""children"": [
+    {
+      ""type"": ""header"",
+      ""attributes"": {
+        ""color"": ""#ffffff"",
+        ""position"": ""top"",
+        ""size"": ""medium"",
+        ""alignment"": ""center"",
+        ""text_content"": ""Healthy Minds""
+      }
+    },
+    {
+      ""type"": ""nav"",
+      ""attributes"": {
+        ""color"": ""#ffffff"",
+        ""position"": ""top"",
+        ""size"": ""small"",
+        ""alignment"": ""center"",
+        ""text_content"": """"
+      },
+      ""children"": [
+        {
+          ""type"": ""search_bar"",
+          ""attributes"": {
+            ""color"": ""#ffffff"",
+            ""position"": ""top"",
+            ""size"": ""small"",
+            ""alignment"": ""center"",
+            ""text_content"": ""Search...""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""#ffffff"",
+            ""position"": ""top"",
+            ""size"": ""small"",
+            ""alignment"": ""center"",
+            ""text_content"": ""Book an Appointment""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""color"": ""#ffffff"",
+            ""position"": ""top"",
+            ""size"": ""small"",
+            ""alignment"": ""center"",
+            ""text_content"": ""Contact Us""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""hero"",
+      ""attributes"": {
+        ""color"": ""#00cc00"",
+        ""position"": ""middle"",
+        ""size"": ""large"",
+        ""alignment"": ""center"",
+        ""text_content"": """"
+      }
+    },
+    {
+      ""type"": ""footer"",
+      ""attributes"": {
+        ""color"": ""#00cc00"",
+        ""position"": ""bottom"",
+        ""size"": ""large"",
+        ""alignment"": ""center"",
+        ""text_content"": """"
+      }
+    }
+  ]
+}
+```",invalid_json
+image_5578_23.png,"system
+You are a helpful assistant.
+user
+You are an expert UI layout analyzer. Analyze this wireframe and output all visible components in a hierarchical JSON structure.
+
+Each component should be represented as an object with:
+- 'type': the component name (e.g., header, nav, hero, button, image, card, footer)
+- 'attributes': a dictionary with attributes like color, position, size, alignment, and text content if visible
+- 'children': a list of nested components inside it
+
+The root node should represent the full page as 'page'.
+Follow the visual hierarchy (top to bottom, left to right). Output valid JSON only—no text outside the JSON.
+assistant
+```json
+{
+  ""type"": ""page"",
+  ""attributes"": {
+    ""color"": ""#ffffff"",
+    ""position"": ""top"",
+    ""size"": ""large"",
+    ""alignment"": ""center""
+  },
+  ""children"": [
+    {
+      ""type"": ""nav"",
+      ""attributes"": {
+        ""color"": ""#0000ff"",
+        ""position"": ""top"",
+        ""size"": ""small"",
+        ""alignment"": ""left""
+      },
+      ""children"": [
+        {
+          ""type"": ""link"",
+          ""attributes"": {
+            ""text"": ""HOME"",
+            ""color"": ""#0000ff"",
+            ""position"": ""left"",
+            ""size"": ""medium"",
+            ""alignment"": ""left""
+          }
+        },
+        {
+          ""type"": ""link"",
+          ""attributes"": {
+            ""text"": ""ABOUT"",
+            ""color"": ""#0000ff"",
+            ""position"": ""left"",
+            ""size"": ""medium"",
+            ""alignment"": ""left""
+          }
+        },
+        {
+          ""type"": ""link"",
+          ""attributes"": {
+            ""text"": ""SERVICES"",
+            ""color"": ""#0000ff"",
+            ""position"": ""left"",
+            ""size"": ""medium"",
+            ""alignment"": ""left""
+          }
+        },
+        {
+          ""type"": ""link"",
+          ""attributes"": {
+            ""text"": ""CONTACT"",
+            ""color"": ""#0000ff"",
+            ""position"": ""right"",
+            ""size"": ""medium"",
+            ""alignment"": ""right""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""hero"",
+      ""attributes"": {
+        ""color"": ""#b0d0e6"",
+        ""position"": ""center"",
+        ""size"": ""large"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""title"",
+          ""attributes"": {
+            ""text"": ""Welcome to Car Rentals"",
+            ""color"": ""#ffffff"",
+            ""position"": ""center"",
+            ""size"": ""large"",
+            ""alignment"": ""center""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""search-bar"",
+      ""attributes"": {
+        ""color"": ""#ffffff"",
+        ""position"": ""center"",
+        ""size"": ""medium"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""input"",
+          ""attributes"": {
+            ""text"": ""Search for car..."",
+            ""color"": ""#ffffff"",
+            ""position"": ""left"",
+            ""size"": ""medium"",
+            ""alignment"": ""left""
+          }
+        },
+        {
+          ""type"": ""button"",
+          ""attributes"": {
+            ""text"": ""Search"",
+            ""color"": ""#b0d0e6"",
+            ""position"": ""right"",
+            ""size"": ""medium"",
+            ""alignment"": ""right""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""section"",
+      ""attributes"": {
+        ""color"": ""#ffffff"",
+        ""position"": ""center"",
+        ""size"": ""large"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""heading"",
+          ""attributes"": {
+            ""text"": ""Where to ride?"",
+            ""color"": ""#000000"",
+            ""position"": ""left"",
+            ""size"": ""large"",
+            ""alignment"": ""left""
+          }
+        },
+        {
+          ""type"": ""paragraph"",
+          ""attributes"": {
+            ""text"": ""Ride where you want, when you want."",
+            ""color"": ""#000000"",
+            ""position"": ""left"",
+            ""size"": ""medium"",
+            ""alignment"": ""left""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""section"",
+      ""attributes"": {
+        ""color"": ""#ffffff"",
+        ""position"": ""center"",
+        ""size"": ""large"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""heading"",
+          ""attributes"": {
+            ""text"": ""Pick a time"",
+            ""color"": ""#000000"",
+            ""position"": ""left"",
+            ""size"": ""large"",
+            ""alignment"": ""left""
+          }
+        },
+        {
+          ""type"": ""paragraph"",
+          ""attributes"": {
+            ""text"": ""When's the ride of a lifetime?"",
+            ""color"": ""#000000"",
+            ""position"": ""left"",
+            ""size"": ""medium"",
+            ""alignment"": ""left""
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""footer"",
+      ""attributes"": {
+        ""color"": ""#cccccc"",
+        ""position"": ""bottom"",
+        ""size"": ""small"",
+        ""alignment"": ""center""
+      },
+      ""children"": [
+        {
+          ""type"": ""copyright"",
+          ""attributes"": {
+            ""text"": ""Copyright © 2022 Car Rental Company"",
+            ""color"": ""#ffffff"",
+            ""position"": ""center"",
+            ""size"": ""small"",
+            ""alignment"": ""center""
+          }
+        }
+      ]
+    }
+  ]
+}
+```",invalid_json
+image_79_37.png,"system
+You are a helpful assistant.
+user
+You are an expert UI layout analyzer. Analyze this wireframe and output all visible components in a hierarchical JSON structure.
+
+Each component should be represented as an object with:
+- 'type': the component name (e.g., header, nav, hero, button, image, card, footer)
+- 'attributes': a dictionary with attributes like color, position, size, alignment, and text content if visible
+- 'children': a list of nested components inside it
+
+The root node should represent the full page as 'page'.
+Follow the visual hierarchy (top to bottom, left to right). Output valid JSON only—no text outside the JSON.
+assistant
+```json
+{
+  ""type"": ""page"",
+  ""attributes"": {
+    ""color"": ""white"",
+    ""position"": ""top"",
+    ""size"": ""large"",
+    ""alignment"": ""center""
+  },
+  ""children"": [
+    {
+      ""type"": ""header"",
+      ""attributes"": {
+        ""color"": ""black"",
+        ""position"": ""top"",
+        ""size"": ""medium"",
+        ""alignment"": ""left"",
+        ""text_content"": ""Social Media ManageR""
+      }
+    },
+    {
+      ""type"": ""nav"",
+      ""attributes"": {
+        ""color"": ""black"",
+        ""position"": ""top"",
+        ""size"": ""small"",
+        ""alignment"": ""right"",
+        ""text_content"": [""Home"", ""About"", ""Services"", ""Pricing"", ""Contact""]
+      }
+    },
+    {
+      ""type"": ""hero"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""middle"",
+        ""size"": ""large"",
+        ""alignment"": ""center"",
+        ""text_content"": [""Optimize Your Social Media Growth"", ""Unlock the power of Social Media with our services""]
+      },
+      ""children"": [
+        {
+          ""type"": ""image"",
+          ""attributes"": {
+            ""color"": ""gray"",
+            ""position"": ""right"",
+            ""size"": ""large"",
+            ""alignment"": ""right"",
+            ""text_content"": """"
+          }
+        }
+      ]
+    },
+    {
+      ""type"": ""card"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""bottom"",
+        ""size"": ""medium"",
+        ""alignment"": ""left"",
+        ""text_content"": [""Our Services"", ""Boost your reach, Increase your engagement, Analyze your data""]
+      }
+    },
+    {
+      ""type"": ""card"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""bottom"",
+        ""size"": ""medium"",
+        ""alignment"": ""left"",
+        ""text_content"": [""Pricing"", ""Starting at just $100 per month""]
+      }
+    },
+    {
+      ""type"": ""footer"",
+      ""attributes"": {
+        ""color"": ""white"",
+        ""position"": ""bottom"",
+        ""size"": ""small"",
+        ""alignment"": ""left"",
+        ""text_content"": [""© 2023 Social Media ManageR""]
+      },
+      ""children"": [
+        {
+          ""type"": ""nav"",
+          ""attributes"": {
+            ""color"": ""black"",
+            ""position"": ""bottom"",
+            ""size"": ""small"",
+            ""alignment"": ""right"",
+            ""text_content"": [""Home"", ""About"", ""Services"", ""Pricing"", ""Contact""]
+          }
+        }
+      ]
+    }
+  ]
+}
+```",invalid_json
